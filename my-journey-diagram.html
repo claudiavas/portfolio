@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Journey Layout Diagram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        svg {
+            width: 100%;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Journey Layout Diagram</h1>
+        <svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+            <!-- Title -->
+            <text x="600" y="40" font-size="32" text-anchor="middle" font-style="italic" font-family="Lucida Handwriting, cursive" fill="#000">
+                My Journey
+            </text>
+
+            <!-- Box 1 - Left -->
+            <g transform="translate(100, 100)">
+                <!-- Circle in top-left corner -->
+                <circle cx="-30" cy="-30" r="50" fill="white" stroke="#22c55e" stroke-width="2"/>
+                <text x="-30" y="-20" text-anchor="middle" font-size="28" font-weight="bold" fill="#22c55e" opacity="0.6">1</text>
+
+                <!-- Box -->
+                <rect x="0" y="0" width="300" height="200" fill="white" stroke="#22c55e" stroke-width="2" rx="16"/>
+
+                <!-- Title -->
+                <text x="20" y="40" font-size="20" font-style="italic" font-family="Lucida Handwriting, cursive" fill="#000">
+                    Fearless Beginner
+                </text>
+
+                <!-- Content -->
+                <text x="20" y="80" font-size="14" fill="#666" width="260">
+                    <tspan x="20" dy="0">After high school, I completed a</tspan>
+                    <tspan x="20" dy="18">year-long programming course...</tspan>
+                </text>
+            </g>
+
+            <!-- Box 2 - Right (offset down) -->
+            <g transform="translate(600, 220)">
+                <circle cx="-30" cy="-30" r="50" fill="white" stroke="#22c55e" stroke-width="2"/>
+                <text x="-30" y="-20" text-anchor="middle" font-size="28" font-weight="bold" fill="#22c55e" opacity="0.6">2</text>
+
+                <rect x="0" y="0" width="300" height="200" fill="white" stroke="#22c55e" stroke-width="2" rx="16"/>
+
+                <text x="20" y="40" font-size="20" font-style="italic" font-family="Lucida Handwriting, cursive" fill="#000">
+                    Academic Adventures
+                </text>
+
+                <text x="20" y="80" font-size="14" fill="#666" width="260">
+                    <tspan x="20" dy="0">I enrolled in a prestigious</tspan>
+                    <tspan x="20" dy="18">university for Business Admin...</tspan>
+                </text>
+            </g>
+
+            <!-- Box 3 - Left (offset down) -->
+            <g transform="translate(100, 340)">
+                <circle cx="-30" cy="-30" r="50" fill="white" stroke="#22c55e" stroke-width="2"/>
+                <text x="-30" y="-20" text-anchor="middle" font-size="28" font-weight="bold" fill="#22c55e" opacity="0.6">3</text>
+
+                <rect x="0" y="0" width="300" height="200" fill="white" stroke="#22c55e" stroke-width="2" rx="16"/>
+
+                <text x="20" y="40" font-size="20" font-style="italic" font-family="Lucida Handwriting, cursive" fill="#000">
+                    The Multifaceted Expert
+                </text>
+
+                <text x="20" y="80" font-size="14" fill="#666" width="260">
+                    <tspan x="20" dy="0">With over 20 years in Finance</tspan>
+                    <tspan x="20" dy="18">and HR, I mastered multitasking...</tspan>
+                </text>
+            </g>
+
+            <!-- Box 4 - Right (offset down) -->
+            <g transform="translate(600, 460)">
+                <circle cx="-30" cy="-30" r="50" fill="white" stroke="#22c55e" stroke-width="2"/>
+                <text x="-30" y="-20" text-anchor="middle" font-size="28" font-weight="bold" fill="#22c55e" opacity="0.6">4</text>
+
+                <rect x="0" y="0" width="300" height="200" fill="white" stroke="#22c55e" stroke-width="2" rx="16"/>
+
+                <text x="20" y="40" font-size="20" font-style="italic" font-family="Lucida Handwriting, cursive" fill="#000">
+                    The Efficient Implementer
+                </text>
+
+                <text x="20" y="80" font-size="14" fill="#666" width="260">
+                    <tspan x="20" dy="0">With problem-solving and IT</tspan>
+                    <tspan x="20" dy="18">mindset, I implemented systems...</tspan>
+                </text>
+            </g>
+
+            <!-- Box 5 - Left (offset down) -->
+            <g transform="translate(100, 580)">
+                <circle cx="-30" cy="-30" r="50" fill="white" stroke="#22c55e" stroke-width="2"/>
+                <text x="-30" y="-20" text-anchor="middle" font-size="28" font-weight="bold" fill="#22c55e" opacity="0.6">5</text>
+
+                <rect x="0" y="0" width="300" height="200" fill="white" stroke="#22c55e" stroke-width="2" rx="16"/>
+
+                <text x="20" y="40" font-size="20" font-style="italic" font-family="Lucida Handwriting, cursive" fill="#000">
+                    From Code Curious to Fan
+                </text>
+
+                <text x="20" y="80" font-size="14" fill="#666" width="260">
+                    <tspan x="20" dy="0">It's never too late to switch</tspan>
+                    <tspan x="20" dy="18">lanes and embrace full stack...</tspan>
+                </text>
+            </g>
+
+            <!-- Legend -->
+            <g transform="translate(100, 820)">
+                <text x="0" y="0" font-size="14" fill="#666">
+                    ✓ Grid 2 columnas | ✓ Boxes alternados izq-derecha | ✓ Números en esquina sup-derecha | ✓ Círculos en esquina sup-izquierda
+                </text>
+            </g>
+        </svg>
+    </div>
+</body>
+</html>
