@@ -1,18 +1,19 @@
-# Claudia's Personal Portfolio
+# Portfolio — claudiavasquez.dev
 
-Mi portafolio personal - [claudiavasquez.dev](https://claudiavasquez.dev)
+Código fuente de mi portfolio personal: [claudiavasquez.dev](https://claudiavasquez.dev)
 
-## 📂 Estructura
+React (create-react-app) + Sass. El deploy es automático: al hacer push a `main`,
+GitHub Actions construye el proyecto y lo publica en GitHub Pages
+([.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
 
-- `index.html` - Página principal compilada
-- `/static/` - Archivos estáticos (CSS, JS)
-- `/images/` - Imágenes del portafolio
-- `CNAME` - Configuración de dominio personalizado
+## Desarrollo
 
-## 🌍 Deployer
+```bash
+npm install
+npm start        # http://localhost:3000
+```
 
-Alojado en GitHub Pages desde la rama `main`.
+## Flujo de trabajo
 
----
-
-Construido con React y desplegado automáticamente.
+- Rama de trabajo: `dev`
+- Publicar: PR `dev → main`; al mergear se despliega solo
