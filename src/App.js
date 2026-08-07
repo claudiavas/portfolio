@@ -25,7 +25,7 @@ const AppContent = ({ classicHeader, darkTheme, isLoading }) => {
   useEffect(() => {
     const updateContainerCenter = () => {
       const viewportWidth = window.innerWidth;
-      const isMobile = viewportWidth < 768;
+      const isMobile = viewportWidth < 992;
       const footerElement = document.querySelector("#footer");
 
       if (footerElement) {
@@ -60,7 +60,7 @@ const AppContent = ({ classicHeader, darkTheme, isLoading }) => {
   const nextPage = currentPageIndex < pages.length - 1 ? pages[currentPageIndex + 1] : null;
   const prevPage = currentPageIndex > 0 ? pages[currentPageIndex - 1] : null;
 
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 992;
 
   return (
     <div
