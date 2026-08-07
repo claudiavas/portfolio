@@ -1,5 +1,10 @@
 // CUSTOM CSS
 
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
 // Mobile Header Styles
 .mobile-header {
   display: none;
