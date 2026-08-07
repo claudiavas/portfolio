@@ -205,6 +205,9 @@ html[dir="rtl"] #footer {
   li:hover.social-icons-email a, &.social-icons-colored li.social-icons-email a {
     color: $email;
   }
+  li:hover.social-icons-whatsapp a, &.social-icons-colored li.social-icons-whatsapp a {
+    color: $whatsapp;
+  }
   li:hover.social-icons-vk a, &.social-icons-colored li.social-icons-vk a {
     color: $vk;
   }

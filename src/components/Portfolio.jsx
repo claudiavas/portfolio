@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Isotope from "isotope-layout";
 import ProjectDetailsModal from "./ProjectDetailsModal";
+const withUtm = (url, source, campaign) =>
+  url +
+  (url.includes("?") ? "&" : "?") +
+  `utm_source=${source}&utm_medium=social&utm_campaign=${campaign}`;
+
 const Portfolio = ({ classicHeader, darkTheme }) => {
   // init one ref to store the future isotope object
   const isotope = useRef();
@@ -29,7 +34,36 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
         link: "https://domus-frontend-production-f950.up.railway.app",
       },
       socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm(
+              "https://domus-frontend-production-f950.up.railway.app",
+              "linkedin",
+              "share_linkedin_domus"
+            )
+          ),
         github: "https://github.com/claudiavas/domus",
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Domus — real estate platform: " +
+              withUtm(
+                "https://domus-frontend-production-f950.up.railway.app",
+                "whatsapp",
+                "share_whatsapp_domus"
+              )
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm(
+              "https://domus-frontend-production-f950.up.railway.app",
+              "facebook",
+              "share_facebook_domus"
+            )
+          ),
       },
       thumbImage: "images/projects/domus-desktop.png",
       sliderImages: [
@@ -52,7 +86,36 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
         link: "https://gift-cards-api-production.up.railway.app",
       },
       socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm(
+              "https://gift-cards-api-production.up.railway.app",
+              "linkedin",
+              "share_linkedin_giftcards"
+            )
+          ),
         github: "https://github.com/claudiavas/gift-cards-api-demo",
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Gift Cards API — automated reward delivery: " +
+              withUtm(
+                "https://gift-cards-api-production.up.railway.app",
+                "whatsapp",
+                "share_whatsapp_giftcards"
+              )
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm(
+              "https://gift-cards-api-production.up.railway.app",
+              "facebook",
+              "share_facebook_giftcards"
+            )
+          ),
       },
       thumbImage: "images/projects/giftcards-hero.png",
       sliderImages: [

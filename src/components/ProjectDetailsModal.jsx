@@ -69,16 +69,20 @@ const ProjectDetailsModal = ({ darkTheme, projectDetails }) => {
                   <div className="col-md-7">
                     <Slider {...settings} ref={sliderRef}>
                       <div className="item">
-                        <img
-                          className="img-fluid"
-                          alt=""
-                          src={projectDetails?.thumbImage}
-                        />
+                        <div className="img-frame">
+                          <img
+                            className="img-fluid"
+                            alt=""
+                            src={projectDetails?.thumbImage}
+                          />
+                        </div>
                       </div>
                       {projectDetails?.sliderImages?.length > 0 &&
                         projectDetails?.sliderImages?.map((image, index) => (
                           <div className="item" key={index}>
-                            <img className="img-fluid" alt="" src={image} />
+                            <div className="img-frame">
+                              <img className="img-fluid" alt="" src={image} />
+                            </div>
                           </div>
                         ))}
                     </Slider>
@@ -167,6 +171,25 @@ const ProjectDetailsModal = ({ darkTheme, projectDetails }) => {
                           {projectDetails?.url?.name}
                         </a>
                       </li>
+                      {projectDetails?.socialLinks?.github && (
+                        <li>
+                          <span
+                            className={
+                              "text-dark font-weight-600 me-2" +
+                              (darkTheme ? " text-white" : "")
+                            }
+                          >
+                            Code:
+                          </span>
+                          <a
+                            href={projectDetails?.socialLinks?.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            GitHub
+                          </a>
+                        </li>
+                      )}
                     </ul>
                     <div className="row no-gutters align-items-center">
                       <div
@@ -184,61 +207,110 @@ const ProjectDetailsModal = ({ darkTheme, projectDetails }) => {
                             (darkTheme ? " social-icons-muted" : "")
                           }
                         >
-                          <li className="social-icons-facebook">
-                            <a
-                              data-toggle="tooltip"
-                              href={projectDetails?.socialLinks?.facebook}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              data-original-title="Facebook"
-                            >
-                              <i className="fab fa-facebook-f" />
-                            </a>
-                          </li>
-                          <li className="social-icons-twitter">
-                            <a
-                              data-toggle="tooltip"
-                              href={projectDetails?.socialLinks?.twitter}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              data-original-title="Twitter"
-                            >
-                              <i className="fab fa-twitter" />
-                            </a>
-                          </li>
-                          <li className="social-icons-google">
-                            <a
-                              data-toggle="tooltip"
-                              href={projectDetails?.socialLinks?.google}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              data-original-title="Google"
-                            >
-                              <i className="fab fa-google" />
-                            </a>
-                          </li>
-                          <li className="social-icons-instagram">
-                            <a
-                              data-toggle="tooltip"
-                              href={projectDetails?.socialLinks?.instagram}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              data-original-title="Instagram"
-                            >
-                              <i className="fab fa-instagram" />
-                            </a>
-                          </li>
-                          <li className="social-icons-email">
-                            <a
-                              data-toggle="tooltip"
-                              href={projectDetails?.socialLinks?.mail}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              data-original-title="Email"
-                            >
-                              <i className="fas fa-envelope" />
-                            </a>
-                          </li>
+                          {projectDetails?.socialLinks?.linkedin && (
+                            <li className="social-icons-linkedin">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="LinkedIn"
+                              >
+                                <i className="fab fa-linkedin-in" />
+                              </a>
+                            </li>
+                          )}
+                          {projectDetails?.socialLinks?.github && (
+                            <li className="social-icons-github">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="GitHub"
+                              >
+                                <i className="fab fa-github" />
+                              </a>
+                            </li>
+                          )}
+                          {projectDetails?.socialLinks?.whatsapp && (
+                            <li className="social-icons-whatsapp">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.whatsapp}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="WhatsApp"
+                              >
+                                <i className="fab fa-whatsapp" />
+                              </a>
+                            </li>
+                          )}
+                          {projectDetails?.socialLinks?.instagram && (
+                            <li className="social-icons-instagram">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.instagram}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="Instagram"
+                              >
+                                <i className="fab fa-instagram" />
+                              </a>
+                            </li>
+                          )}
+                          {projectDetails?.socialLinks?.facebook && (
+                            <li className="social-icons-facebook">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.facebook}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="Facebook"
+                              >
+                                <i className="fab fa-facebook-f" />
+                              </a>
+                            </li>
+                          )}
+                          {projectDetails?.socialLinks?.twitter && (
+                            <li className="social-icons-twitter">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.twitter}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="Twitter"
+                              >
+                                <i className="fab fa-twitter" />
+                              </a>
+                            </li>
+                          )}
+                          {projectDetails?.socialLinks?.google && (
+                            <li className="social-icons-google">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.google}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="Google"
+                              >
+                                <i className="fab fa-google" />
+                              </a>
+                            </li>
+                          )}
+                          {projectDetails?.socialLinks?.mail && (
+                            <li className="social-icons-email">
+                              <a
+                                data-toggle="tooltip"
+                                href={projectDetails.socialLinks.mail}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-original-title="Email"
+                              >
+                                <i className="fas fa-envelope" />
+                              </a>
+                            </li>
+                          )}
                         </ul>
                       </div>
                     </div>

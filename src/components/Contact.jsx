@@ -5,6 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Tooltip } from "./Tooltip";
 
+const PORTFOLIO_URL = "https://claudiavasquez.dev";
+
+const withUtm = (url, source, campaign) =>
+  url +
+  (url.includes("?") ? "&" : "?") +
+  `utm_source=${source}&utm_medium=social&utm_campaign=${campaign}`;
+
 const Contact = ({ classicHeader, darkTheme }) => {
   const form = useRef();
   const [sendingMail, setSendingMail] = useState(false);
@@ -139,6 +146,65 @@ const Contact = ({ classicHeader, darkTheme }) => {
                     rel="noopener noreferrer"
                   >
                     <i className="fab fa-github" style={{ fontSize: "20px" }}/>
+                  </a>
+                </Tooltip>
+              </li>
+            </ul>
+            <h2
+              className={
+                "mb-3 mt-4 text-5 text-uppercase " + (darkTheme ? "text-white" : "")
+              }
+            >
+              Share this Portfolio
+            </h2>
+            <ul
+              className={
+                "social-icons justify-content-center justify-content-md-start " +
+                (darkTheme ? "social-icons-muted" : "")
+              }
+            >
+              <li className="social-icons-linkedin">
+                <Tooltip text="LinkedIn" placement="top">
+                  <a
+                    href={
+                      "https://www.linkedin.com/sharing/share-offsite/?url=" +
+                      encodeURIComponent(withUtm(PORTFOLIO_URL, "linkedin", "share_linkedin_main"))
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-linkedin" style={{ fontSize: "20px" }}/>
+                  </a>
+                </Tooltip>
+              </li>
+              <li className="social-icons-facebook">
+                <Tooltip text="Facebook" placement="top">
+                  <a
+                    href={
+                      "https://www.facebook.com/sharer/sharer.php?u=" +
+                      encodeURIComponent(withUtm(PORTFOLIO_URL, "facebook", "share_facebook_main"))
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-facebook-f" style={{ fontSize: "20px" }}/>
+                  </a>
+                </Tooltip>
+              </li>
+              <li className="social-icons-whatsapp">
+                <Tooltip text="WhatsApp" placement="top">
+                  <a
+                    href={
+                      "https://wa.me/?text=" +
+                      encodeURIComponent(
+                        "Claudia Vásquez — Full-stack portfolio: " +
+                          withUtm(PORTFOLIO_URL, "whatsapp", "share_whatsapp_main")
+                      )
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-whatsapp" style={{ fontSize: "20px" }}/>
                   </a>
                 </Tooltip>
               </li>
