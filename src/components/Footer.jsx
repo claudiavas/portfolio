@@ -9,13 +9,6 @@ const Footer = ({ classicHeader, darkTheme }) => {
     <footer
       id="footer"
       className={"footer-component " + (darkTheme ? "footer-dark bg-dark-1" : "")}
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100
-      }}
     >
       <div className="footer-inner">
         <div className="footer-content">
