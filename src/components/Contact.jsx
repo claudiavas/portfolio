@@ -39,7 +39,6 @@ const Contact = ({ classicHeader, darkTheme }) => {
             progress: undefined,
             theme: darkTheme ? "dark" : "light",
           });
-          console.log(result.text);
           setSendingMail(false);
         },
         (error) => {
@@ -53,7 +52,6 @@ const Contact = ({ classicHeader, darkTheme }) => {
             progress: undefined,
             theme: darkTheme ? "dark" : "light",
           });
-          console.log(error.text);
           setSendingMail(false);
         }
       );
