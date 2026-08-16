@@ -22,6 +22,193 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
 
   const projectsData = [
     {
+      title: "Factusign",
+      projectInfo:
+        "Factusign is a billing app for Spanish freelancers: create quotes and invoices in minutes, send them by link and get them signed from the client's phone with a handwritten signature that carries legal validity. Every document is SHA-256 hashed and compliant with VeriFactu, the AEAT's new mandatory e-invoicing standard (required from July 2026). Free, Pro and Business plans with Stripe billing.",
+      client: "personal",
+      technologies: "React, Vite, Supabase, Stripe, VeriFactu (AEAT), Vercel",
+      industry: "Web Development",
+      date: "August, 2026",
+      url: {
+        name: "factusign.com",
+        link: "https://factusign.com",
+      },
+      socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm("https://factusign.com", "linkedin", "share_linkedin_factusign")
+          ),
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Factusign — facturas y presupuestos con firma digital: " +
+              withUtm("https://factusign.com", "whatsapp", "share_whatsapp_factusign")
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm("https://factusign.com", "facebook", "share_facebook_factusign")
+          ),
+      },
+      thumbImage: "images/projects/factusign-landing.png",
+      sliderImages: [
+        "images/projects/factusign-features.png",
+        "images/projects/factusign-precios.png",
+      ],
+      categories: [filters.BRAND],
+    },
+    {
+      title: "Checkomatik",
+      projectInfo:
+        "Checkomatik is an AI-powered customer service platform for small businesses selling on WhatsApp. The assistant, Mati, answers product questions, shows the catalog and guides customers through checkout 24/7 — powered by OpenAI embeddings and vector search over each merchant's product catalog, with Twilio handling WhatsApp delivery.",
+      client: "personal",
+      technologies: "Node.js, MongoDB Atlas (vector search), OpenAI, Twilio, Railway",
+      industry: "Web Development",
+      date: "August, 2026",
+      url: {
+        name: "checkomatik.com",
+        link: "https://checkomatik.com",
+      },
+      socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm("https://checkomatik.com", "linkedin", "share_linkedin_checkomatik")
+          ),
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Checkomatik — atención al cliente con IA por WhatsApp: " +
+              withUtm("https://checkomatik.com", "whatsapp", "share_whatsapp_checkomatik")
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm("https://checkomatik.com", "facebook", "share_facebook_checkomatik")
+          ),
+      },
+      thumbImage: "images/projects/checkomatik-hero.png",
+      sliderImages: ["images/projects/checkomatik-precios.png"],
+      categories: [filters.BRAND],
+    },
+    {
+      title: "HogarAlPunto",
+      projectInfo:
+        "HogarAlPunto is a home-product recommendation site: instead of showing the best-selling item, it matches products to the visitor's actual situation — square meters, floor type, pets — using AI-assisted search over a real product catalog. Includes topic articles by category and a newsletter.",
+      client: "personal",
+      technologies: "React, Node.js, AI-assisted search, Vercel",
+      industry: "Web Development",
+      date: "August, 2026",
+      url: {
+        name: "hogaralpunto.com",
+        link: "https://hogaralpunto.com",
+      },
+      socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm("https://hogaralpunto.com", "linkedin", "share_linkedin_hogaralpunto")
+          ),
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "HogarAlPunto — recomendaciones de hogar según tu situación real: " +
+              withUtm("https://hogaralpunto.com", "whatsapp", "share_whatsapp_hogaralpunto")
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm("https://hogaralpunto.com", "facebook", "share_facebook_hogaralpunto")
+          ),
+      },
+      thumbImage: "images/projects/hogaralpunto-hero.png",
+      sliderImages: ["images/projects/hogaralpunto-catalogo.png"],
+      categories: [filters.BRAND],
+    },
+    {
+      // TODO: pending real content — technologies, description, screenshots
+      title: "Zoe Auditor",
+      projectInfo:
+        "Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.",
+      client: "personal",
+      technologies: "TBD",
+      industry: "Web Development",
+      date: "2026",
+      url: {
+        name: "www.example.com",
+        link: "https://www.example.com",
+      },
+      socialLinks: {
+        facebook: "http://www.facebook.com/",
+        twitter: "http://www.twitter.com/",
+        google: "http://www.google.com/",
+        instagram: "http://www.instagram.com/",
+        mail: "mailto:example@gmail.com",
+      },
+      thumbImage: "images/projects/project-5.jpg",
+      sliderImages: [
+        "images/projects/project-1.jpg",
+        "images/projects/project-5.jpg",
+      ],
+      categories: [filters.DESIGN],
+    },
+    {
+      title: "Gift Cards API",
+      projectInfo:
+        "A REST API that automates reward delivery: it generates Amazon gift cards, encrypts them with AES-256-GCM the instant they are created, delivers them by email and keeps an append-only audit trail. Idempotency is enforced by the database (UNIQUE + ON CONFLICT), so a retry can never generate or pay for two cards. Any CRM or backoffice can trigger it. The live demo is interactive: every button fires a real HTTP request against the deployed API and shows the server's response.",
+      client: "personal",
+      technologies: "Node.js, Express, PostgreSQL, AES-256-GCM, Amazon Incentives API (AWS SigV4), SendGrid, Docker, Jest, GitHub Actions, Railway",
+      industry: "Web Development",
+      date: "August, 2026",
+      url: {
+        name: "gift-cards-api-production.up.railway.app",
+        link: "https://gift-cards-api-production.up.railway.app",
+      },
+      socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm(
+              "https://gift-cards-api-production.up.railway.app",
+              "linkedin",
+              "share_linkedin_giftcards"
+            )
+          ),
+        github: "https://github.com/claudiavas/gift-cards-api-demo",
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Gift Cards API — automated reward delivery: " +
+              withUtm(
+                "https://gift-cards-api-production.up.railway.app",
+                "whatsapp",
+                "share_whatsapp_giftcards"
+              )
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm(
+              "https://gift-cards-api-production.up.railway.app",
+              "facebook",
+              "share_facebook_giftcards"
+            )
+          ),
+      },
+      thumbImage: "images/projects/giftcards-playground.png",
+      sliderImages: [
+        "images/projects/giftcards-flowchart.png",
+        "images/projects/giftcards-playground.png",
+        "images/projects/giftcards-security.png",
+      ],
+      categories: [filters.BRAND],
+    },
+    {
       title: "Domus",
       projectInfo:
         "Domus is a real estate platform that connects buyers, sellers and agents. Full-stack web application with property listings, an interactive map (Leaflet), advanced filters powered by real Spanish geographic data (INE), saved searches with relevance scoring, dark mode and a bilingual interface (ES/EN). Fully responsive, tested end to end and deployed on Railway.",
@@ -72,188 +259,6 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
         "images/projects/domus-mobile.png",
       ],
       categories: [filters.BRAND],
-    },
-    {
-      title: "Gift Cards API",
-      projectInfo:
-        "A REST API that automates reward delivery: it generates Amazon gift cards, encrypts them with AES-256-GCM the instant they are created, delivers them by email and keeps an append-only audit trail. Idempotency is enforced by the database (UNIQUE + ON CONFLICT), so a retry can never generate or pay for two cards. Any CRM or backoffice can trigger it. The live demo is interactive: every button fires a real HTTP request against the deployed API and shows the server's response.",
-      client: "personal",
-      technologies: "Node.js, Express, PostgreSQL, AES-256-GCM, Amazon Incentives API (AWS SigV4), SendGrid, Docker, Jest, GitHub Actions, Railway",
-      industry: "Web Development",
-      date: "August, 2026",
-      url: {
-        name: "gift-cards-api-production.up.railway.app",
-        link: "https://gift-cards-api-production.up.railway.app",
-      },
-      socialLinks: {
-        linkedin:
-          "https://www.linkedin.com/sharing/share-offsite/?url=" +
-          encodeURIComponent(
-            withUtm(
-              "https://gift-cards-api-production.up.railway.app",
-              "linkedin",
-              "share_linkedin_giftcards"
-            )
-          ),
-        github: "https://github.com/claudiavas/gift-cards-api-demo",
-        whatsapp:
-          "https://wa.me/?text=" +
-          encodeURIComponent(
-            "Gift Cards API — automated reward delivery: " +
-              withUtm(
-                "https://gift-cards-api-production.up.railway.app",
-                "whatsapp",
-                "share_whatsapp_giftcards"
-              )
-          ),
-        instagram: "http://www.instagram.com/",
-        facebook:
-          "https://www.facebook.com/sharer/sharer.php?u=" +
-          encodeURIComponent(
-            withUtm(
-              "https://gift-cards-api-production.up.railway.app",
-              "facebook",
-              "share_facebook_giftcards"
-            )
-          ),
-      },
-      thumbImage: "images/projects/giftcards-hero.png",
-      sliderImages: [
-        "images/projects/giftcards-flowchart.png",
-        "images/projects/giftcards-playground.png",
-        "images/projects/giftcards-security.png",
-      ],
-      categories: [filters.BRAND],
-    },
-    {
-      title: "Project Title 3",
-      projectInfo:
-        "Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.",
-      client: "Ruby Clinton",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "July 16, 2019",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-      socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
-        instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
-      },
-      thumbImage: "images/projects/project-3.jpg",
-      sliderImages: [
-        "images/projects/project-3.jpg",
-        "images/projects/project-5.jpg",
-      ],
-      categories: [filters.PHOTOS],
-    },
-    {
-      title: "Project Title 4",
-      projectInfo:
-        "Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.",
-      client: "Ruby Clinton",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "July 16, 2019",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-      socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
-        instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
-      },
-      thumbImage: "images/projects/project-4.jpg",
-      sliderImages: [
-        "images/projects/project-1.jpg",
-        "images/projects/project-4.jpg",
-      ],
-      categories: [filters.BRAND, filters.PHOTOS],
-    },
-    {
-      title: "Project Title 5",
-      projectInfo:
-        "Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.",
-      client: "Ruby Clinton",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "July 16, 2019",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-      socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
-        instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
-      },
-      thumbImage: "images/projects/project-5.jpg",
-      sliderImages: [
-        "images/projects/project-1.jpg",
-        "images/projects/project-5.jpg",
-      ],
-      categories: [filters.DESIGN],
-    },
-    {
-      title: "Project Title 6",
-      projectInfo:
-        "Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.",
-      client: "Ruby Clinton",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "July 16, 2019",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-      socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
-        instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
-      },
-      thumbImage: "images/projects/project-6.jpg",
-      sliderImages: [
-        "images/projects/project-1.jpg",
-        "images/projects/project-5.jpg",
-      ],
-      categories: [filters.BRAND],
-    },
-    {
-      title: "Project Title 7",
-      projectInfo:
-        "Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.",
-      client: "Ruby Clinton",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "July 16, 2019",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-      socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
-        instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
-      },
-      thumbImage: "images/projects/project-7.jpg",
-      sliderImages: [
-        "images/projects/project-1.jpg",
-        "images/projects/project-5.jpg",
-      ],
-      categories: [filters.DESIGN, filters.PHOTOS],
     },
   ];
 
