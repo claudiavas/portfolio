@@ -97,6 +97,23 @@ const ProjectDetailsModal = ({ darkTheme, projectDetails }) => {
                       Project Info:
                     </h4>
                     <p>{projectDetails?.projectInfo}</p>
+                    <p className="mt-3">
+                      <span
+                        className={
+                          "text-dark font-weight-600 me-2" +
+                          (darkTheme ? " text-white" : "")
+                        }
+                      >
+                        URL:
+                      </span>
+                      <a
+                        href={projectDetails?.url?.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {projectDetails?.url?.name}
+                      </a>
+                    </p>
                     <h4
                       className={
                         "text-4 font-weight-600 mt-4" +
@@ -153,23 +170,6 @@ const ProjectDetailsModal = ({ darkTheme, projectDetails }) => {
                           Date:
                         </span>
                         {projectDetails?.date}
-                      </li>
-                      <li>
-                        <span
-                          className={
-                            "text-dark font-weight-600 me-2" +
-                            (darkTheme ? " text-white" : "")
-                          }
-                        >
-                          URL:
-                        </span>
-                        <a
-                          href={projectDetails?.url?.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {projectDetails?.url?.name}
-                        </a>
                       </li>
                       {projectDetails?.socialLinks?.github && (
                         <li>

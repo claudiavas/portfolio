@@ -15,9 +15,9 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
   const [selectedProjectDetails, setSelectedProjectDetails] = useState();
 
   const filters = {
-    DESIGN: "Desing",
-    BRAND: "Brand",
-    PHOTOS: "Photos",
+    FULLSTACK: "Full Stack",
+    IA: "IA",
+    BACKEND: "Backend",
   };
 
   const projectsData = [
@@ -52,12 +52,13 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
             withUtm("https://factusign.com", "facebook", "share_facebook_factusign")
           ),
       },
+      shortDescription: "Quotes and invoices with legally binding digital signature",
       thumbImage: "images/projects/factusign-landing.png",
       sliderImages: [
         "images/projects/factusign-features.png",
         "images/projects/factusign-precios.png",
       ],
-      categories: [filters.BRAND],
+      categories: [filters.FULLSTACK],
     },
     {
       title: "Checkomatik",
@@ -90,9 +91,10 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
             withUtm("https://checkomatik.com", "facebook", "share_facebook_checkomatik")
           ),
       },
+      shortDescription: "AI assistant that answers customers on WhatsApp 24/7",
       thumbImage: "images/projects/checkomatik-hero.png",
       sliderImages: ["images/projects/checkomatik-precios.png"],
-      categories: [filters.BRAND],
+      categories: [filters.BACKEND, filters.IA],
     },
     {
       title: "HogarAlPunto",
@@ -125,9 +127,10 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
             withUtm("https://hogaralpunto.com", "facebook", "share_facebook_hogaralpunto")
           ),
       },
+      shortDescription: "Home product recommendations matched to your real needs",
       thumbImage: "images/projects/hogaralpunto-hero.png",
       sliderImages: ["images/projects/hogaralpunto-catalogo.png"],
-      categories: [filters.BRAND],
+      categories: [filters.FULLSTACK, filters.IA],
     },
     {
       // TODO: pending real content — technologies, description, screenshots
@@ -149,12 +152,13 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
         instagram: "http://www.instagram.com/",
         mail: "mailto:example@gmail.com",
       },
+      shortDescription: "Claude audits sales conversations as a widget inside Zoho CRM",
       thumbImage: "images/projects/project-5.jpg",
       sliderImages: [
         "images/projects/project-1.jpg",
         "images/projects/project-5.jpg",
       ],
-      categories: [filters.DESIGN],
+      categories: [filters.IA],
     },
     {
       title: "Gift Cards API",
@@ -200,13 +204,16 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
             )
           ),
       },
-      thumbImage: "images/projects/giftcards-playground.png",
+      shortDescription: "REST API that automates and secures gift card delivery",
+      thumbImage: "images/projects/giftcards-hero.png",
       sliderImages: [
+        "images/projects/giftcards-hero.png",
         "images/projects/giftcards-flowchart.png",
         "images/projects/giftcards-playground.png",
+        "images/projects/giftcards-popup.png",
         "images/projects/giftcards-security.png",
       ],
-      categories: [filters.BRAND],
+      categories: [filters.BACKEND],
     },
     {
       title: "Domus",
@@ -252,13 +259,14 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
             )
           ),
       },
+      shortDescription: "Rental property management platform",
       thumbImage: "images/projects/domus-desktop.png",
       sliderImages: [
         "images/projects/domus-map.png",
         "images/projects/domus-dark.png",
         "images/projects/domus-mobile.png",
       ],
-      categories: [filters.BRAND],
+      categories: [filters.FULLSTACK],
     },
   ];
 
@@ -380,7 +388,9 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
                             <h5 className="text-white fw-400">
                               {project.title}
                             </h5>
-                            <span className="text-light">Category</span>
+                            <span className="text-light">
+                              {project.shortDescription}
+                            </span>
                           </div>
                         </div>
                       </div>
