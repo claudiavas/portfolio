@@ -32,6 +32,14 @@ jobs:
         run: npm run build
         env:
           CI: false
+          # Create React App inlines these at compile time, so they end up in
+          # the published bundle either way: a client-side form cannot hide its
+          # own identifiers. They live in secrets so that this public repo's
+          # source does not carry them, and so swapping the EmailJS service or
+          # template needs no commit.
+          REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+          REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
 
       - uses: actions/configure-pages@v4
 

@@ -5,6 +5,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Tooltip } from "./Tooltip";
 
+/*
+  EmailJS identifiers. They reach the browser either way —a client-side form
+  cannot hide them— but they stay out of the source of this public repo, so
+  changing the service or the template is a secret change and not a commit.
+  Set in CI from the EMAILJS_* secrets; locally they come from .env.local.
+*/
+const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
 const PORTFOLIO_URL = "https://claudiavasquez.dev";
 
 const withUtm = (url, source, campaign) =>
@@ -21,10 +31,10 @@ const Contact = ({ classicHeader, darkTheme }) => {
     setSendingMail(true);
     emailjs
       .sendForm(
-        "service_o7rx2pi",
-        "template_btrbnof",
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         form.current,
-        "e-_CjflfZNX4F40qB"
+        EMAILJS_PUBLIC_KEY
       )
       .then(
         (result) => {
