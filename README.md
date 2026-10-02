@@ -13,6 +13,28 @@ npm install
 npm start        # http://localhost:3000
 ```
 
+### Variables de entorno
+
+El formulario de contacto usa EmailJS. Sus tres identificadores no están en el
+código: se leen del entorno, y create-react-app solo pasa al build las que
+empiezan por `REACT_APP_`.
+
+Para desarrollo, crear un `.env.local` (ignorado por git) con:
+
+```
+REACT_APP_EMAILJS_SERVICE_ID=
+REACT_APP_EMAILJS_TEMPLATE_ID=
+REACT_APP_EMAILJS_PUBLIC_KEY=
+```
+
+En el deploy los pone GitHub Actions desde los secrets `EMAILJS_SERVICE_ID`,
+`EMAILJS_TEMPLATE_ID` y `EMAILJS_PUBLIC_KEY` de este repositorio.
+
+Esto los saca del código fuente, no del bundle publicado: un formulario que se
+envía desde el navegador tiene que llevárselos, y create-react-app los incrusta
+al compilar. Lo que limita su uso de verdad es el panel de EmailJS —restringir
+los dominios permitidos y el límite de envíos—.
+
 ## Flujo de trabajo
 
 - Rama de trabajo: `dev`
