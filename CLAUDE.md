@@ -33,6 +33,31 @@ their use are on the EmailJS side: the allowed-domain list, the plan quota, and
 a captcha. Moving sending to a serverless function would put the key
 server-side — considered and not done, overkill for a portfolio.
 
+### 2026-10-02 — The contact form sends through Brevo SMTP, not Gmail OAuth
+
+**Qué:** the EmailJS service is being repointed from the Gmail (OAuth) provider
+to Brevo over Custom SMTP. EmailJS itself stays: the form code does not change,
+only the provider behind the service in its panel.
+
+**Por qué:** the Gmail OAuth grant expires. A real send returned
+`412 Gmail_API: Invalid grant. Please reconnect your Gmail account`. Google
+invalidates refresh tokens on password changes, security reviews and inactivity,
+so reconnecting only resets the clock — the form would break again, silently,
+with no notification. An SMTP key does not expire.
+
+**Alternativas descartadas:**
+
+- *Reconnect Gmail and move on* — two clicks, but the same failure returns.
+- *Resend* — cleaner API and a larger free tier, but it needs a new account, a
+  new credential and domain verification for `claudiavasquez.dev`.
+- *Drop EmailJS for an own endpoint* — would put the key server-side and remove
+  the reliance on the domain allow-list, but GitHub Pages is static, so it needs
+  a separate function (Vercel) plus a form rewrite. Not worth it for a portfolio
+  contact form; revisit if the form ever gets abused.
+
+**Nota:** the private key must never become a `REACT_APP_*` variable. CRA would
+inline it into the public bundle. The browser form does not need it.
+
 ## Gotchas
 
 - **This build emits most chunks at the root of `build/`**, not under
