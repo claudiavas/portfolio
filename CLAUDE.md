@@ -46,6 +46,17 @@ server-side — considered and not done, overkill for a portfolio.
 - **GitHub Actions masks secrets as `***`.** A `-` in a log is a real value.
 - Only `claudiavasquez.dev` serves the site. `www.` has no DNS and
   `claudiavas.github.io` returns 404, so the allow-list needs one entry.
+- **The allowed-domain list lives in Account → Security**, not Account →
+  General. Reading `#domains_domain` from the General tab finds nothing and
+  looks like an empty list; it is the wrong panel. On 2026-10-02 this produced a
+  false "the domain did not persist" diagnosis.
+- **A transparent `._locker_…` div covering "Save Changes" means there is
+  nothing to save.** Playwright reports it as `intercepts pointer events` and
+  the click times out. It is the saved state, not a broken button — confirm by
+  reloading and re-reading the list instead of forcing the click.
+- **In this Playwright build `browser_click` wants the ref in `target`.** A
+  human-readable description fails with "does not match any elements" whenever
+  the control's text sits in a child `generic` rather than its accessible name.
 
 ## Estado
 
@@ -59,6 +70,10 @@ Hecho:
   Verified in the served bundle: each identifier appears once, no `-`, no
   `undefined`.
 - Added `sync-github-secrets-portfolio.yml` to the monorepo (commit `394136e`).
+- **Verified the allowed-domain list is set and saved:** Account → Security
+  lists `https://claudiavasquez.dev` as its single entry, and it survives a full
+  reload. An earlier note here claimed the list had come up empty; that reading
+  was taken from the wrong tab.
 
 Pendiente:
 
@@ -71,11 +86,6 @@ Pendiente:
       different value, so it is a stale or mistyped key, not another account.
       This predates the move to secrets: `.env.local` already held the wrong
       value.
-- [ ] **Allowed-domain list is empty.** `https://claudiavasquez.dev` was added
-      and seen to persist across a reload on 2026-10-01, but the field read
-      empty again on 2026-10-02. Needs re-adding and re-checking, after the key
-      is fixed — until then every send fails on the key and a domain rejection
-      cannot be told apart.
 - [ ] **`GH_PAT_REPOS` cannot write secrets to `claudiavas/portfolio`.** The
       sync workflow's pre-flight guard stops before writing (run
       36934728125). Give the token that repo with *Secrets: Read and write* —
@@ -83,9 +93,11 @@ Pendiente:
 
 **There is no configurable send limit on this plan.** Only the plan quota:
 200/month, resetting on the 24th. "Increase request limit" goes to the paid
-plan.
+plan. So of the two restrictions worth having on the EmailJS side, the domain
+allow-list is in place and a send cap is not available.
 
 Siguiente paso: Claudia pastes the real Public Key into
-`~/Repos/.env.keys.temp` as `EMAILJS_PUBLIC_KEY=`; then upload it to the
-secrets of both repos, redeploy, confirm a real send arrives, and only then
-re-add the allowed domain and verify it again.
+`~/Repos/.env.keys.temp` as `EMAILJS_PUBLIC_KEY=` (the slot is already there,
+empty); then upload it to the secrets of both repos, redeploy, and confirm a
+real send from the live form arrives. The domain allow-list needs no further
+work — it is already correct, and it is what will be exercised by that send.
