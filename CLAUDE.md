@@ -100,6 +100,30 @@ inline it into the public bundle. The browser form does not need it.
   read the form's state only through `browser_evaluate`, returning value
   *lengths* and never values. Two snapshot files held the credential that day;
   `grep -rl` over `.playwright-mcp/` is what found them.
+- **The sections are routes, so an `href="#seccion"` navigates nowhere.** The
+  "Contact Me" button on the home page was an `<a href="#contact">` whose
+  `onClick` called a `handleNavClick` prop that `App.js` never passed to
+  `Home`, so it only ran `preventDefault()` and then threw. Anything that moves
+  between sections uses `<Link to="/…">` from react-router, like the two menus
+  do.
+- **The EmailJS "SMTP Key" input has an `id`, not a `name`.**
+  `document.querySelector('input[name="service_password"]')` returns `null`
+  while the field is right there. Match on either:
+  `[...document.querySelectorAll('input')].find(i => (i.name||i.id) === 'service_password')`.
+  Clicking the eye icon also flips it from `type=password` to `type=text`, so a
+  selector pinned to the type stops matching.
+- **A JavaScript `.click()` does not fire EmailJS's React handlers.** "Set as
+  Default" in the service dropdown never took effect that way, not even chained
+  with waits. It needs a real Playwright click — which needs a snapshot ref,
+  which is exactly what is forbidden on a page with credential fields. So that
+  toggle is not automatable here; it has to be clicked by hand.
+- **The EmailJS send API answers `403 "API access from non-browser
+  environments is currently disabled."`** A curl cannot validate a service. The
+  check has to run in a browser, which in practice means submitting the
+  published form and reading the response.
+- **EmailJS sends through XHR, not `fetch`.** To capture the response of a real
+  submit, patch `XMLHttpRequest.prototype.open`/`send` before clicking; a
+  `window.fetch` wrapper alone sees nothing.
 - **In this Playwright build `browser_click` wants the ref in `target`.** A
   human-readable description fails with "does not match any elements" whenever
   the control's text sits in a child `generic` rather than its accessible name.
@@ -108,41 +132,42 @@ inline it into the public bundle. The browser form does not need it.
 
 **2026-10-03**
 
+**El formulario de contacto vuelve a funcionar.** Un envío real desde
+`claudiavasquez.dev/contact` devuelve `200 OK` y el correo llega al buzón.
+
 Hecho:
 
-- **`GH_PAT_REPOS` ya puede escribir secrets en `claudiavas/portfolio`.** En la
-  página del token: añadido ese repo a *Only select repositories* (junto a
-  `comunaris`), con *Read and Write access to secrets*. Sin fecha de expiración
-  (decisión de Claudia).
-- **Arreglado un segundo caso del bug `--body -`**, esta vez en
-  `sync-github-secrets-portfolio.yml` del monorepo: `gh secret set … --body -`
-  guardaba el guion literal en lugar de leer stdin. Commit en `repos-private`.
-  No había llegado al bundle publicado, que ya tenía los valores buenos.
-- **El sync y el deploy pasaron en verde** y el bundle servido se verificó: los
-  cuatro argumentos de `sendForm` son valores reales (longitudes 17/18/12/19),
-  sin `-` ni `undefined`.
-- **El Public Key quedó correcto.** Un envío real contra
-  `api.emailjs.com/.../email/send` ya **no** devuelve `404 Account not found`:
-  la cuenta, el servicio y la plantilla se resuelven bien.
+- **`GH_PAT_REPOS` ya escribe secrets en `claudiavas/portfolio`**: añadido ese
+  repo a *Only select repositories* con *Read and Write access to secrets*, sin
+  fecha de expiración.
+- **Arreglado un segundo caso del bug `--body -`**, en
+  `sync-github-secrets-portfolio.yml` del monorepo.
+- **Creado el servicio Brevo en EmailJS** (`service_ifq6iqk`), con la credencial
+  `BREVO_SMTP_KEY` que ya existía en el llavero — no se generó una nueva, porque
+  esa misma clave la usan comunaris y Domus.
+- **`EMAILJS_SERVICE_ID` actualizado** en `claudiavas/repos-private` y en
+  `claudiavas/portfolio`, y redesplegado. El bundle servido ya llama a
+  `service_ifq6iqk`; el `service_o7rx2pi` de Gmail ha desaparecido de él.
+- **Verificado de punta a punta**: el envío desde el formulario publicado
+  devuelve `200 OK` y llegan dos correos vía `@6263985.brevosend.com` — el de
+  prueba de EmailJS y el del formulario. El `412 Gmail_API: Invalid grant` ya no
+  se produce.
 
 Pendiente:
 
-- [ ] **El formulario sigue sin enviar, por un único motivo:** el envío real
-      devuelve `412 Gmail_API: Invalid grant. Please reconnect your Gmail
-      account`. El servicio de EmailJS sigue siendo el de Gmail con el permiso
-      OAuth caducado.
-- [ ] **Crear el servicio Brevo en EmailJS.** El formulario *Config Service*
-      quedó abierto y relleno: Name `Brevo`, Service ID `service_ifq6iqk`
-      (generado solo), User Email `claudia.vasquez.as@gmail.com`, *Send test
-      email* marcado. **Falta que Claudia pegue la SMTP Key** — Claude no puede
-      teclearla sin que el valor entre en el historial. Después: marcarlo como
-      `default`.
-- [ ] **Actualizar `EMAILJS_SERVICE_ID`** al ID del servicio nuevo en
-      `claudiavas/repos-private` y en `claudiavas/portfolio`, redesplegar y
-      confirmar que un envío real desde `claudiavasquez.dev/contact` llega.
-- [ ] **Rotar la contraseña filtrada** (la que Chromium autorellenó en el campo
-      SMTP Key, dos veces). Es de Claudia; sigue sin hacerse.
+- [ ] **Rotar la contraseña filtrada.** Chromium la autorellenó en el campo SMTP
+      Key y llegó dos veces al historial de la conversación. Es de Claudia.
+- [ ] **El servicio Gmail `service_o7rx2pi` sigue existiendo** y marcado
+      `default` en EmailJS. No afecta: el formulario llama a un `service_id`
+      explícito. Borrarlo o no es decisión de Claudia.
+- [ ] **Valorar cómo entregar una credencial a un formulario del navegador** sin
+      que pase por el portapapeles. Hoy se hizo con
+      `with-secret.sh … -- pbcopy`, que no la expone por pantalla ni a disco,
+      pero la deja en el portapapeles hasta que se limpia a mano.
 
-Siguiente paso: Claudia pega la SMTP Key de Brevo en el formulario abierto y lo
-crea; luego se actualiza el `EMAILJS_SERVICE_ID` en los dos repos, se
-redespliega y se comprueba un envío real.
+Y arreglado el botón **"Contact Me"** de la portada, que no llevaba a ninguna
+parte: era un ancla `#contact` con un `onClick` a una prop que nadie pasaba.
+Ahora es un `<Link to="/contact">`. Comprobado en local con el navegador: la URL
+pasa a `/contact`, el formulario se pinta y la consola no da ningún error.
+
+Siguiente paso: nada bloqueante en este repo. Al retomar, rotar la contraseña.

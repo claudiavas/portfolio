@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Typewriter from "typewriter-effect";
 // import videobg from "../videos/home.mp4";
 
@@ -48,16 +49,12 @@ const Home = ({ classicHeader, darkTheme }) => {
                 <p className="text-5 text-light mb-4">
                   based in Spain.
                 </p>
-                <a
-                  href="#contact"
-                  className="btn btn-outline-primary rounded-pill shadow-none smooth-scroll mt-2"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick("contact");
-                  }}
+                <Link
+                  to="/contact"
+                  className="btn btn-outline-primary rounded-pill shadow-none mt-2"
                 >
                   Contact Me
-                </a>
+                </Link>
               </div>
             </div>
           </div>
