@@ -79,50 +79,70 @@ inline it into the public bundle. The browser form does not need it.
   nothing to save.** Playwright reports it as `intercepts pointer events` and
   the click times out. It is the saved state, not a broken button — confirm by
   reloading and re-reading the list instead of forcing the click.
+- **A Playwright snapshot shows password fields in clear text.** Masking is
+  visual only: the accessibility snapshot reports an `input[type=password]`
+  `value` like any other field's. Worse, the MCP browser keeps its own
+  persistent profile with its own saved logins, so a credential field on a
+  domain it knows arrives **already autofilled** — even on a freshly opened
+  creation form. On 2026-10-02 this put an account password into the
+  conversation history, read from the EmailJS "SMTP Key" field of a brand-new
+  service form nobody had typed into. Before snapshotting any form with
+  credential fields, clear them and confirm with `browser_evaluate` that they
+  are empty; never read the snapshot first. The profile was deleted that day
+  (`~/Library/Caches/ms-playwright/mcp-chrome-*`), so it starts with no saved
+  passwords — but it will save them again if a login is accepted in that window.
+  **It happened a second time on 2026-10-03**, with the field already cleared and
+  verified empty: the leak came from `grep`-ing the snapshot file Playwright had
+  written *before* the clearing. Deleting the profile did not prevent the
+  autofill either — Chromium had saved the password again. So the rule is:
+  **never read a snapshot file of a page with credential fields.** Clear the
+  field with `browser_evaluate`, set its `autocomplete` to `new-password`, and
+  read the form's state only through `browser_evaluate`, returning value
+  *lengths* and never values. Two snapshot files held the credential that day;
+  `grep -rl` over `.playwright-mcp/` is what found them.
 - **In this Playwright build `browser_click` wants the ref in `target`.** A
   human-readable description fails with "does not match any elements" whenever
   the control's text sits in a child `generic` rather than its accessible name.
 
 ## Estado
 
-**2026-10-02**
+**2026-10-03**
 
 Hecho:
 
-- The three EmailJS identifiers moved out of the source into secrets, in both
-  `claudiavas/repos-private` and `claudiavas/portfolio`.
-- Fixed the `--body -` bug that had published a build sending literal dashes.
-  Verified in the served bundle: each identifier appears once, no `-`, no
-  `undefined`.
-- Added `sync-github-secrets-portfolio.yml` to the monorepo (commit `394136e`).
-- **Verified the allowed-domain list is set and saved:** Account → Security
-  lists `https://claudiavasquez.dev` as its single entry, and it survives a full
-  reload. An earlier note here claimed the list had come up empty; that reading
-  was taken from the wrong tab.
+- **`GH_PAT_REPOS` ya puede escribir secrets en `claudiavas/portfolio`.** En la
+  página del token: añadido ese repo a *Only select repositories* (junto a
+  `comunaris`), con *Read and Write access to secrets*. Sin fecha de expiración
+  (decisión de Claudia).
+- **Arreglado un segundo caso del bug `--body -`**, esta vez en
+  `sync-github-secrets-portfolio.yml` del monorepo: `gh secret set … --body -`
+  guardaba el guion literal en lugar de leer stdin. Commit en `repos-private`.
+  No había llegado al bundle publicado, que ya tenía los valores buenos.
+- **El sync y el deploy pasaron en verde** y el bundle servido se verificó: los
+  cuatro argumentos de `sendForm` son valores reales (longitudes 17/18/12/19),
+  sin `-` ni `undefined`.
+- **El Public Key quedó correcto.** Un envío real contra
+  `api.emailjs.com/.../email/send` ya **no** devuelve `404 Account not found`:
+  la cuenta, el servicio y la plantilla se resuelven bien.
 
 Pendiente:
 
-- [ ] **The contact form does not send.** A real submit from
-      `claudiavasquez.dev/contact` returns `404 Account not found` from
-      `api.emailjs.com/api/v1.0/email/send-form`. Cause: the Public Key in
-      `.env.local` is not this account's. Compared by SHA-256 prefix against
-      the dashboard — service `75c4b1ef` and template `1f4f0044` match, public
-      key `9d491aac` (local) vs `0a6d6fca` (dashboard) does not. Same length,
-      different value, so it is a stale or mistyped key, not another account.
-      This predates the move to secrets: `.env.local` already held the wrong
-      value.
-- [ ] **`GH_PAT_REPOS` cannot write secrets to `claudiavas/portfolio`.** The
-      sync workflow's pre-flight guard stops before writing (run
-      36934728125). Give the token that repo with *Secrets: Read and write* —
-      that repo only, not "all repos" — then re-run the workflow.
+- [ ] **El formulario sigue sin enviar, por un único motivo:** el envío real
+      devuelve `412 Gmail_API: Invalid grant. Please reconnect your Gmail
+      account`. El servicio de EmailJS sigue siendo el de Gmail con el permiso
+      OAuth caducado.
+- [ ] **Crear el servicio Brevo en EmailJS.** El formulario *Config Service*
+      quedó abierto y relleno: Name `Brevo`, Service ID `service_ifq6iqk`
+      (generado solo), User Email `claudia.vasquez.as@gmail.com`, *Send test
+      email* marcado. **Falta que Claudia pegue la SMTP Key** — Claude no puede
+      teclearla sin que el valor entre en el historial. Después: marcarlo como
+      `default`.
+- [ ] **Actualizar `EMAILJS_SERVICE_ID`** al ID del servicio nuevo en
+      `claudiavas/repos-private` y en `claudiavas/portfolio`, redesplegar y
+      confirmar que un envío real desde `claudiavasquez.dev/contact` llega.
+- [ ] **Rotar la contraseña filtrada** (la que Chromium autorellenó en el campo
+      SMTP Key, dos veces). Es de Claudia; sigue sin hacerse.
 
-**There is no configurable send limit on this plan.** Only the plan quota:
-200/month, resetting on the 24th. "Increase request limit" goes to the paid
-plan. So of the two restrictions worth having on the EmailJS side, the domain
-allow-list is in place and a send cap is not available.
-
-Siguiente paso: Claudia pastes the real Public Key into
-`~/Repos/.env.keys.temp` as `EMAILJS_PUBLIC_KEY=` (the slot is already there,
-empty); then upload it to the secrets of both repos, redeploy, and confirm a
-real send from the live form arrives. The domain allow-list needs no further
-work — it is already correct, and it is what will be exercised by that send.
+Siguiente paso: Claudia pega la SMTP Key de Brevo en el formulario abierto y lo
+crea; luego se actualiza el `EMAILJS_SERVICE_ID` en los dos repos, se
+redespliega y se comprueba un envío real.
