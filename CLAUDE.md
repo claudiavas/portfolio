@@ -124,50 +124,51 @@ inline it into the public bundle. The browser form does not need it.
 - **EmailJS sends through XHR, not `fetch`.** To capture the response of a real
   submit, patch `XMLHttpRequest.prototype.open`/`send` before clicking; a
   `window.fetch` wrapper alone sees nothing.
+- **The `DEFAULT` badge on an EmailJS service does not affect the form.**
+  `sendForm` takes the `service_id` as an explicit argument, so it never falls
+  back to a default. The badge only preselects a service when creating a
+  template or sending a test from the EmailJS panel. Proof: the published bundle
+  calls `service_ifq6iqk` and a real submit returned `200 OK` while the Gmail
+  service — broken with `Invalid grant` — still carried the badge.
 - **In this Playwright build `browser_click` wants the ref in `target`.** A
   human-readable description fails with "does not match any elements" whenever
   the control's text sits in a child `generic` rather than its accessible name.
 
 ## Estado
 
-**2026-10-03**
+**2026-10-05**
 
-**El formulario de contacto vuelve a funcionar.** Un envío real desde
-`claudiavasquez.dev/contact` devuelve `200 OK` y el correo llega al buzón.
+**El formulario de contacto y el botón que lleva a él funcionan en producción.**
 
-Hecho:
+Hecho en esta sesión:
 
-- **`GH_PAT_REPOS` ya escribe secrets en `claudiavas/portfolio`**: añadido ese
-  repo a *Only select repositories* con *Read and Write access to secrets*, sin
-  fecha de expiración.
-- **Arreglado un segundo caso del bug `--body -`**, en
-  `sync-github-secrets-portfolio.yml` del monorepo.
-- **Creado el servicio Brevo en EmailJS** (`service_ifq6iqk`), con la credencial
-  `BREVO_SMTP_KEY` que ya existía en el llavero — no se generó una nueva, porque
-  esa misma clave la usan comunaris y Domus.
-- **`EMAILJS_SERVICE_ID` actualizado** en `claudiavas/repos-private` y en
-  `claudiavas/portfolio`, y redesplegado. El bundle servido ya llama a
-  `service_ifq6iqk`; el `service_o7rx2pi` de Gmail ha desaparecido de él.
-- **Verificado de punta a punta**: el envío desde el formulario publicado
-  devuelve `200 OK` y llegan dos correos vía `@6263985.brevosend.com` — el de
-  prueba de EmailJS y el del formulario. El `412 Gmail_API: Invalid grant` ya no
-  se produce.
+- **Arreglado el botón "Contact Me" de la portada**, que no llevaba a ninguna
+  parte. Era un `<a href="#contact">` cuyo `onClick` llamaba a una prop
+  `handleNavClick` que `App.js` nunca pasaba a `Home`: hacía `preventDefault()`
+  —cancelaba la navegación— y acto seguido petaba. Ahora es un
+  `<Link to="/contact">`, como hacen los dos menús. Commit `7e1b757`, mergeado a
+  `main`, deploy `37147092194` en verde.
+- **Comprobado en producción con un clic real**: `claudiavasquez.dev` → el botón
+  → URL `/contact`, formulario pintado, consola sin errores. Ojo con la caché de
+  GitHub Pages: justo tras el deploy seguía sirviendo el bundle viejo; con
+  `?v=2` ya venía el nuevo.
+- **Revisados los demás `href="#…"`**: los del `Footer` son modales de Bootstrap
+  (`data-bs-toggle="modal"`), navegación legítima. El fallo estaba aislado.
+- **Borrado el servicio Gmail `service_o7rx2pi`** en EmailJS. Queda Brevo
+  (`service_ifq6iqk`) como único servicio. No era necesario para que funcionara
+  —el formulario llama a un `service_id` explícito— pero un servicio muerto
+  marcado `DEFAULT` confunde a quien abra el panel dentro de seis meses.
 
 Pendiente:
 
 - [ ] **Rotar la contraseña filtrada.** Chromium la autorellenó en el campo SMTP
       Key y llegó dos veces al historial de la conversación. Es de Claudia.
-- [ ] **El servicio Gmail `service_o7rx2pi` sigue existiendo** y marcado
-      `default` en EmailJS. No afecta: el formulario llama a un `service_id`
-      explícito. Borrarlo o no es decisión de Claudia.
+- [ ] **Valorar rotar la Public Key de EmailJS**, que también pasó por el
+      historial. Menor gravedad: viaja al navegador en el bundle de todas
+      formas, lo que de verdad la limita es la lista de dominios permitidos.
 - [ ] **Valorar cómo entregar una credencial a un formulario del navegador** sin
       que pase por el portapapeles. Hoy se hizo con
       `with-secret.sh … -- pbcopy`, que no la expone por pantalla ni a disco,
       pero la deja en el portapapeles hasta que se limpia a mano.
-
-Y arreglado el botón **"Contact Me"** de la portada, que no llevaba a ninguna
-parte: era un ancla `#contact` con un `onClick` a una prop que nadie pasaba.
-Ahora es un `<Link to="/contact">`. Comprobado en local con el navegador: la URL
-pasa a `/contact`, el formulario se pinta y la consola no da ningún error.
 
 Siguiente paso: nada bloqueante en este repo. Al retomar, rotar la contraseña.
