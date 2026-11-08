@@ -136,39 +136,25 @@ inline it into the public bundle. The browser form does not need it.
 
 ## Estado
 
-**2026-10-05**
+**2026-11-08**
 
-**El formulario de contacto y el botón que lleva a él funcionan en producción.**
+**Comunaris añadido como proyecto nº 1 del portfolio** (rama
+`sesion/comunaris-portfolio`, mergeada a `dev`; falta publicar a `main`).
 
 Hecho en esta sesión:
 
-- **Arreglado el botón "Contact Me" de la portada**, que no llevaba a ninguna
-  parte. Era un `<a href="#contact">` cuyo `onClick` llamaba a una prop
-  `handleNavClick` que `App.js` nunca pasaba a `Home`: hacía `preventDefault()`
-  —cancelaba la navegación— y acto seguido petaba. Ahora es un
-  `<Link to="/contact">`, como hacen los dos menús. Commit `7e1b757`, mergeado a
-  `main`, deploy `37147092194` en verde.
-- **Comprobado en producción con un clic real**: `claudiavasquez.dev` → el botón
-  → URL `/contact`, formulario pintado, consola sin errores. Ojo con la caché de
-  GitHub Pages: justo tras el deploy seguía sirviendo el bundle viejo; con
-  `?v=2` ya venía el nuevo.
-- **Revisados los demás `href="#…"`**: los del `Footer` son modales de Bootstrap
-  (`data-bs-toggle="modal"`), navegación legítima. El fallo estaba aislado.
-- **Borrado el servicio Gmail `service_o7rx2pi`** en EmailJS. Queda Brevo
-  (`service_ifq6iqk`) como único servicio. No era necesario para que funcionara
-  —el formulario llama a un `service_id` explícito— pero un servicio muerto
-  marcado `DEFAULT` confunde a quien abra el panel dentro de seis meses.
+- Nueva entrada al principio de `projectsData` en
+  `src/components/Portfolio.jsx`: descripción, stack (Next.js, Supabase + RLS,
+  Paddle, Vercel), enlace a `comunaris.com`, UTMs `share_<red>_comunaris`.
+- Tres capturas 1280x800 de `comunaris.com` en `public/images/projects/`
+  (`comunaris-hero`, `-features`, `-pricing`), sin barra de scroll.
+- Comprobado en local (`/portfolio`): primera tarjeta del grid y modal correcto.
 
 Pendiente:
 
-- [ ] **Rotar la contraseña filtrada.** Chromium la autorellenó en el campo SMTP
-      Key y llegó dos veces al historial de la conversación. Es de Claudia.
-- [ ] **Valorar rotar la Public Key de EmailJS**, que también pasó por el
-      historial. Menor gravedad: viaja al navegador en el bundle de todas
-      formas, lo que de verdad la limita es la lista de dominios permitidos.
-- [ ] **Valorar cómo entregar una credencial a un formulario del navegador** sin
-      que pase por el portapapeles. Hoy se hizo con
-      `with-secret.sh … -- pbcopy`, que no la expone por pantalla ni a disco,
-      pero la deja en el portapapeles hasta que se limpia a mano.
+- [ ] **PR `dev → main`** para publicar. Necesita el visto bueno de Claudia.
+- [ ] **Nota «está en el portfolio» en el README de comunaris.** Ese repo
+      estaba en `sesion/pwa-phone-tested`, rama de otra sesión; no se tocó.
+- [ ] Rotar la contraseña filtrada de EmailJS (de 2026-10-05, sigue abierto).
 
-Siguiente paso: nada bloqueante en este repo. Al retomar, rotar la contraseña.
+Siguiente paso: publicar a `main` y comprobar en `claudiavasquez.dev`.
