@@ -138,23 +138,29 @@ inline it into the public bundle. The browser form does not need it.
 
 **2026-11-08**
 
-**Comunaris añadido como proyecto nº 1 del portfolio** (rama
-`sesion/comunaris-portfolio`, mergeada a `dev`; falta publicar a `main`).
+**Zoe Auditor fuera del portfolio, Domus en su sitio y más capturas de
+Comunaris** (rama `sesion/portfolio-zoe-domus`, commit local, sin push ni PR).
 
 Hecho en esta sesión:
 
-- Nueva entrada al principio de `projectsData` en
-  `src/components/Portfolio.jsx`: descripción, stack (Next.js, Supabase + RLS,
-  Paddle, Vercel), enlace a `comunaris.com`, UTMs `share_<red>_comunaris`.
-- Tres capturas 1280x800 de `comunaris.com` en `public/images/projects/`
-  (`comunaris-hero`, `-features`, `-pricing`), sin barra de scroll.
-- Comprobado en local (`/portfolio`): primera tarjeta del grid y modal correcto.
+- Eliminada la entrada de Zoe Auditor de `projectsData` en
+  `src/components/Portfolio.jsx` (era contenido de relleno: lorem ipsum,
+  `example.com`, TODO). Borradas `project-1.jpg` y `project-5.jpg`, que solo
+  usaba Zoe. El README no la mencionaba.
+- Domus movido al hueco de Zoe. Orden del grid: Comunaris, Factusign,
+  Checkomatik, HogarAlPunto, Domus, Gift Cards API.
+- Cuatro capturas nuevas de `comunaris.com` (1280x800, sin scroll, datos demo
+  ficticios): `comunaris-dashboard`, `-analytics`, `-feature-page`
+  (`/en/maintenance-fees`) y `-dark` (dashboard en modo oscuro). El modal de
+  Comunaris tiene ahora 7 diapositivas. Se descartó la sección de presupuesto
+  porque muestra el nombre legal de Claudia como responsable de datos.
+- «Solo se ve una captura»: el slider funciona (comprobado en local, 7 slides
+  y 7 puntos; Domus igual). La navegación es solo con puntos pequeños bajo la
+  imagen (`arrows: false`, sin autoplay en `ProjectDetailsModal.jsx`), así que
+  pasa desapercibida. `main` ya tenía las 3 capturas; producción no se pudo
+  abrir desde el sandbox.
+- Build en verde.
 
-Pendiente:
-
-- [ ] **PR `dev → main`** para publicar. Necesita el visto bueno de Claudia.
-- [ ] **Nota «está en el portfolio» en el README de comunaris.** Ese repo
-      estaba en `sesion/pwa-phone-tested`, rama de otra sesión; no se tocó.
-- [ ] Rotar la contraseña filtrada de EmailJS (de 2026-10-05, sigue abierto).
-
-Siguiente paso: publicar a `main` y comprobar en `claudiavasquez.dev`.
+Siguiente paso: que Claudia decida si se activan flechas y/o autoplay en el
+slider; después, PR de la rama a `main`. Refrescar las capturas `comunaris-*`
+cuando cambie su web pública.

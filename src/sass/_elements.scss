@@ -845,3 +845,29 @@ html[dir="rtl"] .list-style-1 > li {
 .list-style-2.list-style-light > li {
   border-bottom: 1px solid rgba(250,250,250,0.12);
 }
+/* Project slider arrows, drawn over the screenshot so they stay visible on light and dark modals */
+.slick-prev,
+.slick-next {
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  transition: background 0.2s ease;
+  &:hover,
+  &:focus {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  &:before {
+    font-size: 22px;
+    line-height: 40px;
+    opacity: 1;
+    color: #fff;
+  }
+}
+.slick-prev {
+  left: 12px;
+}
+.slick-next {
+  right: 12px;
+}

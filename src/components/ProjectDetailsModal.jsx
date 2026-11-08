@@ -7,7 +7,7 @@ const ProjectDetailsModal = ({ darkTheme, projectDetails }) => {
 
   var settings = {
     dots: true,
-    arrows: false,
+    arrows: true,
     infinite: true,
     adaptiveHeight: true,
     speed: 500,
