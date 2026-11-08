@@ -149,11 +149,18 @@ Hecho en esta sesión:
 - Tres capturas 1280x800 de `comunaris.com` en `public/images/projects/`
   (`comunaris-hero`, `-features`, `-pricing`), sin barra de scroll.
 - Comprobado en local (`/portfolio`): primera tarjeta del grid y modal correcto.
+- **Contraseña de EmailJS rotada** (la filtrada de 2026-10-05). La nueva se
+  generó sin pasar por pantalla y está en el llavero como
+  `EMAILJS_ACCOUNT_PASSWORD` (cuenta, sin sufijo a propósito). Login
+  comprobado en el panel. El formulario no la usa: solo sirve para entrar al
+  panel de EmailJS.
+- **Copia antigua `portfolio_Claudia` eliminada**: no era el sitio publicado.
+  Se borró el repo privado en GitHub (se puede restaurar hasta 2027-02-06) y la
+  carpeta de `Profesional_private/Proyectos`.
 
 Pendiente:
 
 - [ ] **Nota «está en el portfolio» en el README de comunaris.** Ese repo
       estaba en `sesion/pwa-phone-tested`, rama de otra sesión; no se tocó.
-- [ ] Rotar la contraseña filtrada de EmailJS (de 2026-10-05, sigue abierto).
 
 Siguiente paso: añadir la nota de portfolio al README de comunaris cuando cierre su sesión de la PWA.
