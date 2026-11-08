@@ -160,7 +160,7 @@ inline it into the public bundle. The browser form does not need it.
 
 **2026-11-08**
 
-**Portfolio filters fixed** (on `dev`, not yet on `main`).
+**Portfolio filters fixed and published** (PR #11, deploy OK).
 
 Hecho en esta sesión:
 
@@ -170,13 +170,12 @@ Hecho en esta sesión:
   (`fullstack`, `ai`, `backend`) and `filterLabels` holds the visible text.
 - Checked on the local build: Full Stack → Comunaris, Factusign, HogarAlPunto,
   Domus; IA → Checkomatik, HogarAlPunto; Backend → Checkomatik, Gift Cards API.
+  Same counts (4/2/2) checked on claudiavasquez.dev after the deploy.
 
 Pendiente:
 
-- [ ] Publish `dev` → `main` (needs Claudia's approval).
 - [ ] `https://www.` certificate: GitHub still has not issued it (external).
   If it does not appear, remove and re-add the domain in Settings → Pages.
 - [ ] Confirm with Claudia that the apex opens on her Mac after flushing the cache.
 
-Siguiente paso: publish to `main` once Claudia approves; then check
-`https_certificate.domains` for `www.claudiavasquez.dev`.
+Siguiente paso: check `https_certificate.domains` for `www.claudiavasquez.dev`.
