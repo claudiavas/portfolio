@@ -55,8 +55,12 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
       shortDescription: "Building and homeowners' association management, clear and up to date",
       thumbImage: "images/projects/comunaris-hero.png",
       sliderImages: [
+        "images/projects/comunaris-dashboard.png",
+        "images/projects/comunaris-analytics.png",
         "images/projects/comunaris-features.png",
+        "images/projects/comunaris-feature-page.png",
         "images/projects/comunaris-pricing.png",
+        "images/projects/comunaris-dark.png",
       ],
       categories: [filters.FULLSTACK],
     },
@@ -172,32 +176,57 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
       categories: [filters.FULLSTACK, filters.IA],
     },
     {
-      // TODO: pending real content — technologies, description, screenshots
-      title: "Zoe Auditor",
+      title: "Domus",
       projectInfo:
-        "Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.",
+        "Domus is a real estate platform that connects buyers, sellers and agents. Full-stack web application with property listings, an interactive map (Leaflet), advanced filters powered by real Spanish geographic data (INE), saved searches with relevance scoring, dark mode and a bilingual interface (ES/EN). Fully responsive, tested end to end and deployed on Railway.",
       client: "personal",
-      technologies: "TBD",
+      technologies: "React, Material UI, Leaflet, i18next (ES/EN), dark mode, Node.js, Express, MongoDB, JWT, Railway, Jest + Supertest, Playwright (E2E)",
       industry: "Web Development",
-      date: "2026",
+      date: "July, 2023",
       url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
+        name: "domus-frontend-production-f950.up.railway.app",
+        link: "https://domus-frontend-production-f950.up.railway.app",
       },
       socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm(
+              "https://domus-frontend-production-f950.up.railway.app",
+              "linkedin",
+              "share_linkedin_domus"
+            )
+          ),
+        github: "https://github.com/claudiavas/domus",
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Domus — real estate platform: " +
+              withUtm(
+                "https://domus-frontend-production-f950.up.railway.app",
+                "whatsapp",
+                "share_whatsapp_domus"
+              )
+          ),
         instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm(
+              "https://domus-frontend-production-f950.up.railway.app",
+              "facebook",
+              "share_facebook_domus"
+            )
+          ),
       },
-      shortDescription: "Claude audits sales conversations as a widget inside Zoho CRM",
-      thumbImage: "images/projects/project-5.jpg",
+      shortDescription: "Rental property management platform",
+      thumbImage: "images/projects/domus-desktop.png",
       sliderImages: [
-        "images/projects/project-1.jpg",
-        "images/projects/project-5.jpg",
+        "images/projects/domus-map.png",
+        "images/projects/domus-dark.png",
+        "images/projects/domus-mobile.png",
       ],
-      categories: [filters.IA],
+      categories: [filters.FULLSTACK],
     },
     {
       title: "Gift Cards API",
@@ -253,59 +282,6 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
         "images/projects/giftcards-security.png",
       ],
       categories: [filters.BACKEND],
-    },
-    {
-      title: "Domus",
-      projectInfo:
-        "Domus is a real estate platform that connects buyers, sellers and agents. Full-stack web application with property listings, an interactive map (Leaflet), advanced filters powered by real Spanish geographic data (INE), saved searches with relevance scoring, dark mode and a bilingual interface (ES/EN). Fully responsive, tested end to end and deployed on Railway.",
-      client: "personal",
-      technologies: "React, Material UI, Leaflet, i18next (ES/EN), dark mode, Node.js, Express, MongoDB, JWT, Railway, Jest + Supertest, Playwright (E2E)",
-      industry: "Web Development",
-      date: "July, 2023",
-      url: {
-        name: "domus-frontend-production-f950.up.railway.app",
-        link: "https://domus-frontend-production-f950.up.railway.app",
-      },
-      socialLinks: {
-        linkedin:
-          "https://www.linkedin.com/sharing/share-offsite/?url=" +
-          encodeURIComponent(
-            withUtm(
-              "https://domus-frontend-production-f950.up.railway.app",
-              "linkedin",
-              "share_linkedin_domus"
-            )
-          ),
-        github: "https://github.com/claudiavas/domus",
-        whatsapp:
-          "https://wa.me/?text=" +
-          encodeURIComponent(
-            "Domus — real estate platform: " +
-              withUtm(
-                "https://domus-frontend-production-f950.up.railway.app",
-                "whatsapp",
-                "share_whatsapp_domus"
-              )
-          ),
-        instagram: "http://www.instagram.com/",
-        facebook:
-          "https://www.facebook.com/sharer/sharer.php?u=" +
-          encodeURIComponent(
-            withUtm(
-              "https://domus-frontend-production-f950.up.railway.app",
-              "facebook",
-              "share_facebook_domus"
-            )
-          ),
-      },
-      shortDescription: "Rental property management platform",
-      thumbImage: "images/projects/domus-desktop.png",
-      sliderImages: [
-        "images/projects/domus-map.png",
-        "images/projects/domus-dark.png",
-        "images/projects/domus-mobile.png",
-      ],
-      categories: [filters.FULLSTACK],
     },
   ];
 
