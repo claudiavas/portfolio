@@ -124,50 +124,37 @@ inline it into the public bundle. The browser form does not need it.
 - **EmailJS sends through XHR, not `fetch`.** To capture the response of a real
   submit, patch `XMLHttpRequest.prototype.open`/`send` before clicking; a
   `window.fetch` wrapper alone sees nothing.
+- **The `DEFAULT` badge on an EmailJS service does not affect the form.**
+  `sendForm` takes the `service_id` as an explicit argument, so it never falls
+  back to a default. The badge only preselects a service when creating a
+  template or sending a test from the EmailJS panel. Proof: the published bundle
+  calls `service_ifq6iqk` and a real submit returned `200 OK` while the Gmail
+  service — broken with `Invalid grant` — still carried the badge.
 - **In this Playwright build `browser_click` wants the ref in `target`.** A
   human-readable description fails with "does not match any elements" whenever
   the control's text sits in a child `generic` rather than its accessible name.
 
 ## Estado
 
-**2026-10-03**
+**2026-11-08**
 
-**El formulario de contacto vuelve a funcionar.** Un envío real desde
-`claudiavasquez.dev/contact` devuelve `200 OK` y el correo llega al buzón.
+**Comunaris añadido como proyecto nº 1 del portfolio** (rama
+`sesion/comunaris-portfolio`, mergeada a `dev`; falta publicar a `main`).
 
-Hecho:
+Hecho en esta sesión:
 
-- **`GH_PAT_REPOS` ya escribe secrets en `claudiavas/portfolio`**: añadido ese
-  repo a *Only select repositories* con *Read and Write access to secrets*, sin
-  fecha de expiración.
-- **Arreglado un segundo caso del bug `--body -`**, en
-  `sync-github-secrets-portfolio.yml` del monorepo.
-- **Creado el servicio Brevo en EmailJS** (`service_ifq6iqk`), con la credencial
-  `BREVO_SMTP_KEY` que ya existía en el llavero — no se generó una nueva, porque
-  esa misma clave la usan comunaris y Domus.
-- **`EMAILJS_SERVICE_ID` actualizado** en `claudiavas/repos-private` y en
-  `claudiavas/portfolio`, y redesplegado. El bundle servido ya llama a
-  `service_ifq6iqk`; el `service_o7rx2pi` de Gmail ha desaparecido de él.
-- **Verificado de punta a punta**: el envío desde el formulario publicado
-  devuelve `200 OK` y llegan dos correos vía `@6263985.brevosend.com` — el de
-  prueba de EmailJS y el del formulario. El `412 Gmail_API: Invalid grant` ya no
-  se produce.
+- Nueva entrada al principio de `projectsData` en
+  `src/components/Portfolio.jsx`: descripción, stack (Next.js, Supabase + RLS,
+  Paddle, Vercel), enlace a `comunaris.com`, UTMs `share_<red>_comunaris`.
+- Tres capturas 1280x800 de `comunaris.com` en `public/images/projects/`
+  (`comunaris-hero`, `-features`, `-pricing`), sin barra de scroll.
+- Comprobado en local (`/portfolio`): primera tarjeta del grid y modal correcto.
 
 Pendiente:
 
-- [ ] **Rotar la contraseña filtrada.** Chromium la autorellenó en el campo SMTP
-      Key y llegó dos veces al historial de la conversación. Es de Claudia.
-- [ ] **El servicio Gmail `service_o7rx2pi` sigue existiendo** y marcado
-      `default` en EmailJS. No afecta: el formulario llama a un `service_id`
-      explícito. Borrarlo o no es decisión de Claudia.
-- [ ] **Valorar cómo entregar una credencial a un formulario del navegador** sin
-      que pase por el portapapeles. Hoy se hizo con
-      `with-secret.sh … -- pbcopy`, que no la expone por pantalla ni a disco,
-      pero la deja en el portapapeles hasta que se limpia a mano.
+- [ ] **PR `dev → main`** para publicar. Necesita el visto bueno de Claudia.
+- [ ] **Nota «está en el portfolio» en el README de comunaris.** Ese repo
+      estaba en `sesion/pwa-phone-tested`, rama de otra sesión; no se tocó.
+- [ ] Rotar la contraseña filtrada de EmailJS (de 2026-10-05, sigue abierto).
 
-Y arreglado el botón **"Contact Me"** de la portada, que no llevaba a ninguna
-parte: era un ancla `#contact` con un `onClick` a una prop que nadie pasaba.
-Ahora es un `<Link to="/contact">`. Comprobado en local con el navegador: la URL
-pasa a `/contact`, el formulario se pinta y la consola no da ningún error.
-
-Siguiente paso: nada bloqueante en este repo. Al retomar, rotar la contraseña.
+Siguiente paso: publicar a `main` y comprobar en `claudiavasquez.dev`.
