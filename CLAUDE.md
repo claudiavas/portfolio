@@ -16,6 +16,20 @@ Personal portfolio site. Create React App, deployed to GitHub Pages at
 
 ## Decisiones
 
+### 2026-11-08 — Cloudflare only resolves DNS; GitHub Pages serves and certifies
+
+**Qué:** the `claudiavasquez.dev` apex and `www` (CNAME → `claudiavas.github.io`)
+are **DNS only** (proxy off, grey cloud) in Cloudflare. GitHub Pages issues the
+certificate and enforces HTTPS. `www` exists only to redirect to the apex.
+
+**Por qué:** with the proxy on, a Cloudflare outage took the portfolio down
+even though GitHub Pages was up, and GitHub cannot issue its certificate
+through the proxy. With the proxy off, the site depends only on GitHub Pages.
+
+**Alternativas descartadas:** keeping the proxy (single point of failure, no
+benefit for a static showcase); paying for hosting (the portfolio is for
+showing work, not for clients).
+
 ### 2026-10-02 — The EmailJS identifiers live in secrets, not in the source
 
 **Qué:** `REACT_APP_EMAILJS_SERVICE_ID`, `REACT_APP_EMAILJS_TEMPLATE_ID` and
@@ -69,8 +83,16 @@ inline it into the public bundle. The browser form does not need it.
   `-`. Omit `--body` entirely and `gh` reads the value from stdin. This shipped
   a build calling `sendForm("-","-",form.current,"-")` on 2026-10-01.
 - **GitHub Actions masks secrets as `***`.** A `-` in a log is a real value.
-- Only `claudiavasquez.dev` serves the site. `www.` has no DNS and
+- Only `claudiavasquez.dev` serves the site. `www.` is a CNAME that GitHub
+  Pages redirects to the apex (`http://www` → 301 since 2026-11-08), and
   `claudiavas.github.io` returns 404, so the allow-list needs one entry.
+- **The Pages certificate covered only the apex on 2026-11-08** (`gh api
+  repos/claudiavas/portfolio/pages` → `https_certificate.domains`), so
+  `https://www.` failed TLS. If it still does, remove and re-add the custom
+  domain in Settings → Pages so GitHub reissues it for both names.
+- **DNS checks go through Google DoH** (`https://dns.google/resolve?name=…`):
+  local port 53 is intercepted and the Mac caches NXDOMAIN, so `curl` may fail
+  with exit 6 on a name that already resolves. Use `--resolve host:443:IP`.
 - **The allowed-domain list lives in Account → Security**, not Account →
   General. Reading `#domains_domain` from the General tab finds nothing and
   looks like an empty list; it is the wrong panel. On 2026-10-02 this produced a
@@ -138,29 +160,23 @@ inline it into the public bundle. The browser form does not need it.
 
 **2026-11-08**
 
-**Zoe Auditor fuera del portfolio, Domus en su sitio y más capturas de
-Comunaris** (rama `sesion/portfolio-zoe-domus`, commit local, sin push ni PR).
+**Portfolio filters fixed** (on `dev`, not yet on `main`).
 
 Hecho en esta sesión:
 
-- Eliminada la entrada de Zoe Auditor de `projectsData` en
-  `src/components/Portfolio.jsx` (era contenido de relleno: lorem ipsum,
-  `example.com`, TODO). Borradas `project-1.jpg` y `project-5.jpg`, que solo
-  usaba Zoe. El README no la mencionaba.
-- Domus movido al hueco de Zoe. Orden del grid: Comunaris, Factusign,
-  Checkomatik, HogarAlPunto, Domus, Gift Cards API.
-- Cuatro capturas nuevas de `comunaris.com` (1280x800, sin scroll, datos demo
-  ficticios): `comunaris-dashboard`, `-analytics`, `-feature-page`
-  (`/en/maintenance-fees`) y `-dark` (dashboard en modo oscuro). El modal de
-  Comunaris tiene ahora 7 diapositivas. Se descartó la sección de presupuesto
-  porque muestra el nombre legal de Claudia como responsable de datos.
-- «Solo se ve una captura»: el slider funciona (comprobado en local, 7 slides
-  y 7 puntos; Domus igual). La navegación es solo con puntos pequeños bajo la
-  imagen (`arrows: false`, sin autoplay en `ProjectDetailsModal.jsx`), así que
-  pasa desapercibida. `main` ya tenía las 3 capturas; producción no se pudo
-  abrir desde el sandbox.
-- Build en verde.
+- The "Full Stack" filter showed nothing: filter values are used as CSS class
+  names and Isotope selectors, and `"Full Stack"` (with a space) became two
+  classes, so `.Full Stack` never matched. `filters` now holds space-free keys
+  (`fullstack`, `ai`, `backend`) and `filterLabels` holds the visible text.
+- Checked on the local build: Full Stack → Comunaris, Factusign, HogarAlPunto,
+  Domus; IA → Checkomatik, HogarAlPunto; Backend → Checkomatik, Gift Cards API.
 
-Siguiente paso: que Claudia decida si se activan flechas y/o autoplay en el
-slider; después, PR de la rama a `main`. Refrescar las capturas `comunaris-*`
-cuando cambie su web pública.
+Pendiente:
+
+- [ ] Publish `dev` → `main` (needs Claudia's approval).
+- [ ] `https://www.` certificate: GitHub still has not issued it (external).
+  If it does not appear, remove and re-add the domain in Settings → Pages.
+- [ ] Confirm with Claudia that the apex opens on her Mac after flushing the cache.
+
+Siguiente paso: publish to `main` once Claudia approves; then check
+`https_certificate.domains` for `www.claudiavasquez.dev`.
