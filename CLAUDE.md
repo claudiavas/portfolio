@@ -160,28 +160,23 @@ inline it into the public bundle. The browser form does not need it.
 
 **2026-11-08**
 
-**Portfolio served straight from GitHub Pages, no Cloudflare proxy** (only DNS
-and docs changed; the code is unchanged, and `main` already has the slider
-arrows and the Zoe/Domus changes).
+**Portfolio filters fixed** (on `dev`, not yet on `main`).
 
 Hecho en esta sesión:
 
-- In Cloudflare the apex records were set to DNS only, and `www` was created as a
-  CNAME → `claudiavas.github.io` without proxy (approved by Claudia).
-  Pages: `cname` claudiavasquez.dev, `status` built, apex certificate
-  `approved`, `https_enforced` true.
-- Checked: `https://claudiavasquez.dev` 200 from the terminal, the test
-  Chromium and Claudia's normal Chrome; `http://www` → 301 to the apex.
-- Claudia saw it fail on her Mac without `www`. It could not be reproduced:
-  everything points to a local cache (macOS DNS / Chrome). Claudia was given
-  the flush steps.
+- The "Full Stack" filter showed nothing: filter values are used as CSS class
+  names and Isotope selectors, and `"Full Stack"` (with a space) became two
+  classes, so `.Full Stack` never matched. `filters` now holds space-free keys
+  (`fullstack`, `ai`, `backend`) and `filterLabels` holds the visible text.
+- Checked on the local build: Full Stack → Comunaris, Factusign, HogarAlPunto,
+  Domus; IA → Checkomatik, HogarAlPunto; Backend → Checkomatik, Gift Cards API.
 
 Pendiente:
 
+- [ ] Publish `dev` → `main` (needs Claudia's approval).
 - [ ] `https://www.` certificate: GitHub still has not issued it (external).
-  If it does not appear, remove and re-add the domain in Settings → Pages
-  (Claudia; the agent's permissions block that change).
-- [ ] Confirm with Claudia that it opens on her Mac after flushing the cache.
+  If it does not appear, remove and re-add the domain in Settings → Pages.
+- [ ] Confirm with Claudia that the apex opens on her Mac after flushing the cache.
 
-Siguiente paso: check `https_certificate.domains`; if it includes
-`www.claudiavasquez.dev`, close the entry.
+Siguiente paso: publish to `main` once Claudia approves; then check
+`https_certificate.domains` for `www.claudiavasquez.dev`.
