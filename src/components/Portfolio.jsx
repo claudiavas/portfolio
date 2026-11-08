@@ -14,7 +14,14 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
   const [imagesLoaded, setimagesLoaded] = useState(0);
   const [selectedProjectDetails, setSelectedProjectDetails] = useState();
 
+  // Filter values double as CSS class names, so they must not contain spaces
   const filters = {
+    FULLSTACK: "fullstack",
+    IA: "ai",
+    BACKEND: "backend",
+  };
+
+  const filterLabels = {
     FULLSTACK: "Full Stack",
     IA: "IA",
     BACKEND: "Backend",
@@ -362,7 +369,7 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
                   }
                   onClick={handleFilterKeyChange(filters[oneKey])}
                 >
-                  {filters[oneKey]}
+                  {filterLabels[oneKey]}
                 </button>
               </li>
             ))}
