@@ -22,6 +22,45 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
 
   const projectsData = [
     {
+      title: "Comunaris",
+      projectInfo:
+        "Comunaris is a management app for buildings and homeowners' associations. It replaces the spreadsheets, chat groups and paper receipts of running a building with a single tool: owners register with checked ownership percentages, maintenance fees split by percentage or equal parts down to the cent, water meter readings and bill split, amenity bookings without overlaps, expenses with vendors and proofs, equipment maintenance, meeting notices and minutes, and notices shared on WhatsApp. Multi-building and multi-role with Postgres row-level security, an audit trail of every change, bilingual (ES/EN), light and dark mode, and subscription billing with Paddle priced by building size.",
+      client: "personal",
+      technologies: "Next.js, React, TypeScript, Tailwind, shadcn/ui, Supabase (Postgres + RLS), Zod, Paddle, Vercel",
+      industry: "Web Development",
+      date: "September, 2026",
+      url: {
+        name: "comunaris.com",
+        link: "https://comunaris.com",
+      },
+      socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm("https://comunaris.com", "linkedin", "share_linkedin_comunaris")
+          ),
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Comunaris — la gestión de tu edificio, clara y al día: " +
+              withUtm("https://comunaris.com", "whatsapp", "share_whatsapp_comunaris")
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm("https://comunaris.com", "facebook", "share_facebook_comunaris")
+          ),
+      },
+      shortDescription: "Building and homeowners' association management, clear and up to date",
+      thumbImage: "images/projects/comunaris-hero.png",
+      sliderImages: [
+        "images/projects/comunaris-features.png",
+        "images/projects/comunaris-pricing.png",
+      ],
+      categories: [filters.FULLSTACK],
+    },
+    {
       title: "Factusign",
       projectInfo:
         "Factusign is a billing app for Spanish freelancers: create quotes and invoices in minutes, send them by link and get them signed from the client's phone with a handwritten signature that carries legal validity. Every document is SHA-256 hashed and compliant with VeriFactu, the AEAT's new mandatory e-invoicing standard (required from July 2026). Free, Pro and Business plans with Stripe billing.",
