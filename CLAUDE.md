@@ -139,7 +139,7 @@ inline it into the public bundle. The browser form does not need it.
 **2026-11-08**
 
 **Comunaris añadido como proyecto nº 1 del portfolio** (rama
-`sesion/comunaris-portfolio`, mergeada a `dev`; falta publicar a `main`).
+`sesion/comunaris-portfolio`, publicado: PR #9 a `main`, deploy en verde).
 
 Hecho en esta sesión:
 
@@ -152,9 +152,8 @@ Hecho en esta sesión:
 
 Pendiente:
 
-- [ ] **PR `dev → main`** para publicar. Necesita el visto bueno de Claudia.
 - [ ] **Nota «está en el portfolio» en el README de comunaris.** Ese repo
       estaba en `sesion/pwa-phone-tested`, rama de otra sesión; no se tocó.
 - [ ] Rotar la contraseña filtrada de EmailJS (de 2026-10-05, sigue abierto).
 
-Siguiente paso: publicar a `main` y comprobar en `claudiavasquez.dev`.
+Siguiente paso: añadir la nota de portfolio al README de comunaris cuando cierre su sesión de la PWA.
