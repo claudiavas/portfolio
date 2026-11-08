@@ -158,9 +158,9 @@ Hecho en esta sesión:
   Se borró el repo privado en GitHub (se puede restaurar hasta 2027-02-06) y la
   carpeta de `Profesional_private/Proyectos`.
 
-Pendiente:
+- **Nota «está en el portfolio» en el README de comunaris** (PR #239 de
+  comunaris, mezclado en `main`). Recuerda refrescar las capturas
+  `comunaris-*.png` de aquí cuando cambie la UI de la web pública.
 
-- [ ] **Nota «está en el portfolio» en el README de comunaris.** Ese repo
-      estaba en `sesion/pwa-phone-tested`, rama de otra sesión; no se tocó.
-
-Siguiente paso: añadir la nota de portfolio al README de comunaris cuando cierre su sesión de la PWA.
+Sin pendientes. Siguiente paso: ninguno abierto; refrescar las capturas de
+comunaris cuando cambie su web pública.
