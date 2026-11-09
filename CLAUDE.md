@@ -180,6 +180,7 @@ Pendiente:
   to GitHub). On 2026-11-09 the custom domain was removed and re-added via the
   API (`PUT /pages` with `{"cname":null}`, then the domain; `-F cname=null`
   does NOT unset it). The certificate still covers only the apex; it can take
-  up to 24 h.
+  up to 24 h. **Check again from 2026-11-10 at 19:00** with
+  `gh api repos/claudiavas/portfolio/pages -q .https_certificate.domains`.
 
 Siguiente paso: check `https_certificate.domains` for `www.claudiavasquez.dev`.
