@@ -171,6 +171,7 @@ Hecho en esta sesión:
 - Checked on the local build: Full Stack → Comunaris, Factusign, HogarAlPunto,
   Domus; IA → Checkomatik, HogarAlPunto; Backend → Checkomatik, Gift Cards API.
   Same counts (4/2/2) checked on claudiavasquez.dev after the deploy.
+- Claudia confirmed (2026-11-09) that `claudiavasquez.dev` loads on her Mac.
 
 Pendiente:
 
@@ -180,6 +181,5 @@ Pendiente:
   API (`PUT /pages` with `{"cname":null}`, then the domain; `-F cname=null`
   does NOT unset it). The certificate still covers only the apex; it can take
   up to 24 h.
-- [ ] Confirm with Claudia that the apex opens on her Mac after flushing the cache.
 
 Siguiente paso: check `https_certificate.domains` for `www.claudiavasquez.dev`.
