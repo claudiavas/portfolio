@@ -175,7 +175,11 @@ Hecho en esta sesión:
 Pendiente:
 
 - [ ] `https://www.` certificate: GitHub still has not issued it (external).
-  If it does not appear, remove and re-add the domain in Settings → Pages.
+  DNS is correct (`www` CNAME → `claudiavas.github.io`, no CAA, apex A records
+  to GitHub). On 2026-11-09 the custom domain was removed and re-added via the
+  API (`PUT /pages` with `{"cname":null}`, then the domain; `-F cname=null`
+  does NOT unset it). The certificate still covers only the apex; it can take
+  up to 24 h.
 - [ ] Confirm with Claudia that the apex opens on her Mac after flushing the cache.
 
 Siguiente paso: check `https_certificate.domains` for `www.claudiavasquez.dev`.
