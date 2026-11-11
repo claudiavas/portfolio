@@ -179,8 +179,12 @@ Pendiente:
   DNS is correct (`www` CNAME → `claudiavas.github.io`, no CAA, apex A records
   to GitHub). On 2026-11-09 the custom domain was removed and re-added via the
   API (`PUT /pages` with `{"cname":null}`, then the domain; `-F cname=null`
-  does NOT unset it). The certificate still covers only the apex; it can take
-  up to 24 h. **Check again from 2026-11-10 at 19:00** with
-  `gh api repos/claudiavas/portfolio/pages -q .https_certificate.domains`.
+  does NOT unset it). On 2026-11-11 (48 h later) it still covered only the
+  apex and `https://www.` still served GitHub's `*.github.io` certificate, so
+  the domain was removed and re-added again (Claudia's choice; JSON body via
+  `--input -`). **Check again from 2026-11-12** with
+  `gh api repos/claudiavas/portfolio/pages -q .https_certificate.domains`. If
+  it still fails, the remaining options are making `www.` the Pages domain or
+  leaving it (only typed `https://www.` fails; `http://www` → 301 to apex).
 
-Siguiente paso: check `https_certificate.domains` for `www.claudiavasquez.dev`.
+Siguiente paso: from 2026-11-12, check `https_certificate.domains` for `www.claudiavasquez.dev`.
