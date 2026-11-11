@@ -16,11 +16,20 @@ Personal portfolio site. Create React App, deployed to GitHub Pages at
 
 ## Decisiones
 
+### 2026-11-11 — `www` goes through the Cloudflare proxy
+
+**Qué:** only the `www` CNAME is proxied (orange cloud); the apex stays DNS only.
+
+**Por qué:** GitHub Pages kept issuing the certificate for the apex alone, so
+typed `https://www.` failed TLS. Claudia chose the proxy over making `www` the
+Pages domain or leaving it. A Cloudflare outage now affects only `www`.
+
 ### 2026-11-08 — Cloudflare only resolves DNS; GitHub Pages serves and certifies
 
-**Qué:** the `claudiavasquez.dev` apex and `www` (CNAME → `claudiavas.github.io`)
-are **DNS only** (proxy off, grey cloud) in Cloudflare. GitHub Pages issues the
-certificate and enforces HTTPS. `www` exists only to redirect to the apex.
+**Qué:** the `claudiavasquez.dev` apex is **DNS only** (proxy off, grey cloud)
+in Cloudflare; GitHub Pages issues its certificate and enforces HTTPS. `www`
+(CNAME → `claudiavas.github.io`) exists only to redirect to the apex and, since
+2026-11-11, is **proxied** (orange cloud) — see the decision below.
 
 **Por qué:** with the proxy on, a Cloudflare outage took the portfolio down
 even though GitHub Pages was up, and GitHub cannot issue its certificate
@@ -86,10 +95,14 @@ inline it into the public bundle. The browser form does not need it.
 - Only `claudiavasquez.dev` serves the site. `www.` is a CNAME that GitHub
   Pages redirects to the apex (`http://www` → 301 since 2026-11-08), and
   `claudiavas.github.io` returns 404, so the allow-list needs one entry.
-- **The Pages certificate covered only the apex on 2026-11-08** (`gh api
-  repos/claudiavas/portfolio/pages` → `https_certificate.domains`), so
-  `https://www.` failed TLS. If it still does, remove and re-add the custom
-  domain in Settings → Pages so GitHub reissues it for both names.
+- **GitHub never added `www` to the Pages certificate** (apex only, even after
+  removing and re-adding the domain twice), so `www` is proxied by Cloudflare,
+  which serves its own `*.claudiavasquez.dev` certificate; GitHub still answers
+  the 301 to the apex. Do not switch `www` back to DNS only unless GitHub's
+  `https_certificate.domains` lists it. Toggle it with `PATCH
+  /zones/<id>/dns_records/<id>` `{"proxied":…}` using `CLOUDFLARE_API_TOKEN`
+  (DNS edit only; it cannot read the zone SSL mode or rules). If the zone SSL
+  mode ever becomes "Full (strict)", `www` will break with 526.
 - **Removing and re-adding the Pages custom domain takes the site down**
   (`build_type: workflow`): on 2026-11-11 the re-add left
   `claudiavasquez.dev` on GitHub's "There isn't a GitHub Pages site here" 404
@@ -165,33 +178,21 @@ inline it into the public bundle. The browser form does not need it.
 
 ## Estado
 
-**2026-11-08**
+**2026-11-11**
 
-**Portfolio filters fixed and published** (PR #11, deploy OK).
+**`https://www.claudiavasquez.dev` works** (Cloudflare proxy on `www`).
 
 Hecho en esta sesión:
 
-- The "Full Stack" filter showed nothing: filter values are used as CSS class
-  names and Isotope selectors, and `"Full Stack"` (with a space) became two
-  classes, so `.Full Stack` never matched. `filters` now holds space-free keys
-  (`fullstack`, `ai`, `backend`) and `filterLabels` holds the visible text.
-- Checked on the local build: Full Stack → Comunaris, Factusign, HogarAlPunto,
-  Domus; IA → Checkomatik, HogarAlPunto; Backend → Checkomatik, Gift Cards API.
-  Same counts (4/2/2) checked on claudiavasquez.dev after the deploy.
-- Claudia confirmed (2026-11-09) that `claudiavasquez.dev` loads on her Mac.
+- GitHub still issued the Pages certificate for the apex only, so `www` was
+  proxied in Cloudflare via the API. Checked in the Playwright test browser:
+  `https://www`, `http://www` and the apex all land on
+  `https://claudiavasquez.dev/` with 200.
+- Earlier the same day, re-adding the Pages domain left the site on GitHub's
+  404 until the deploy was re-run (gotcha recorded above).
 
 Pendiente:
 
-- [ ] `https://www.` certificate: GitHub still has not issued it (external).
-  DNS is correct (`www` CNAME → `claudiavas.github.io`, no CAA, apex A records
-  to GitHub). On 2026-11-09 the custom domain was removed and re-added via the
-  API (`PUT /pages` with `{"cname":null}`, then the domain; `-F cname=null`
-  does NOT unset it). On 2026-11-11 (48 h later) it still covered only the
-  apex and `https://www.` still served GitHub's `*.github.io` certificate, so
-  the domain was removed and re-added again (Claudia's choice; JSON body via
-  `--input -`) and the deploy re-run. **Check again from 2026-11-12** with
-  `gh api repos/claudiavas/portfolio/pages -q .https_certificate.domains`. If
-  it still fails, the remaining options are making `www.` the Pages domain or
-  leaving it (only typed `https://www.` fails; `http://www` → 301 to apex).
+- Nothing open.
 
-Siguiente paso: from 2026-11-12, check `https_certificate.domains` for `www.claudiavasquez.dev`.
+Siguiente paso: none.
