@@ -90,6 +90,13 @@ inline it into the public bundle. The browser form does not need it.
   repos/claudiavas/portfolio/pages` → `https_certificate.domains`), so
   `https://www.` failed TLS. If it still does, remove and re-add the custom
   domain in Settings → Pages so GitHub reissues it for both names.
+- **Removing and re-adding the Pages custom domain takes the site down**
+  (`build_type: workflow`): on 2026-11-11 the re-add left
+  `claudiavasquez.dev` on GitHub's "There isn't a GitHub Pages site here" 404
+  until the last `Build & Deploy Portfolio` run on `main` was re-run
+  (`gh run rerun <id>`). Always re-run the deploy right after touching the
+  domain. Verify in a real browser: `curl` from the sandboxed shell goes
+  through a proxy and kept returning 200 while browsers got the 404.
 - **DNS checks go through Google DoH** (`https://dns.google/resolve?name=…`):
   local port 53 is intercepted and the Mac caches NXDOMAIN, so `curl` may fail
   with exit 6 on a name that already resolves. Use `--resolve host:443:IP`.
@@ -182,7 +189,7 @@ Pendiente:
   does NOT unset it). On 2026-11-11 (48 h later) it still covered only the
   apex and `https://www.` still served GitHub's `*.github.io` certificate, so
   the domain was removed and re-added again (Claudia's choice; JSON body via
-  `--input -`). **Check again from 2026-11-12** with
+  `--input -`) and the deploy re-run. **Check again from 2026-11-12** with
   `gh api repos/claudiavas/portfolio/pages -q .https_certificate.domains`. If
   it still fails, the remaining options are making `www.` the Pages domain or
   leaving it (only typed `https://www.` fails; `http://www` → 301 to apex).
