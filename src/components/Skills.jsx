@@ -81,6 +81,22 @@ const Skills = ({ classicHeader, darkTheme }) => {
       name: "Bootstrap",
       percent: 75,
     },
+    {
+      name: "Progressive Web Apps (PWA)",
+      percent: 80,
+    },
+    {
+      name: "Android TWA & Google Play",
+      percent: 70,
+    },
+    {
+      name: "Web Bluetooth",
+      percent: 75,
+    },
+    {
+      name: "Web Speech API",
+      percent: 70,
+    },
   ];
 
   const backend = [
@@ -103,25 +119,6 @@ const Skills = ({ classicHeader, darkTheme }) => {
     {
       name: "SQLite",
       percent: 75,
-    },
-  ];
-
-  const mobile = [
-    {
-      name: "Progressive Web Apps (PWA)",
-      percent: 80,
-    },
-    {
-      name: "Android TWA & Google Play",
-      percent: 70,
-    },
-    {
-      name: "Web Bluetooth",
-      percent: 75,
-    },
-    {
-      name: "Web Speech API",
-      percent: 70,
     },
   ];
 
@@ -305,44 +302,6 @@ const Skills = ({ classicHeader, darkTheme }) => {
         <div className="row gx-5">
           {frontend.length > 0 &&
             frontend.map((skill, index) => (
-              <div key={index} className="col-md-6">
-                <p
-                  className={
-                    "text-3 fw-500 text-start mb-2 " +
-                    (darkTheme ? "text-light" : "text-dark")
-                  }
-                >
-                  {skill.name}{" "}
-                  <span className="float-end">{skill.percent}%</span>
-                </p>
-                <div
-                  className={
-                    "progress progress-sm mb-4 " + (darkTheme ? "bg-dark" : "")
-                  }
-                >
-                  <div
-                    className="progress-bar"
-                    role="progressbar"
-                    style={{ width: skill.percent + "%" }}
-                    aria-valuenow={skill.percent}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                  />
-                </div>
-              </div>
-            ))}
-        </div>
-         {/* Mobile & PWA Skills */}
-         <h2
-          className={
-            "text-5 fw-600 mt-4 mb-4 " + (darkTheme ? "text-white" : "")
-          }
-        >
-          Mobile &amp; PWA
-        </h2>
-        <div className="row gx-5">
-          {mobile.length > 0 &&
-            mobile.map((skill, index) => (
               <div key={index} className="col-md-6">
                 <p
                   className={
