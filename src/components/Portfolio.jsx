@@ -72,6 +72,47 @@ const Portfolio = ({ classicHeader, darkTheme }) => {
       categories: [filters.FULLSTACK],
     },
     {
+      title: "Vatio Coach",
+      projectInfo:
+        "Vatio Coach is a personal coach for smart rowing machines. It connects to the rower over Bluetooth (FTMS), reads power and stroke rate live and guides each session out loud: when to push, when to recover and which resistance to set. A short placement test sets the starting point and the goal; from there it builds a weekly plan (6 months, 1 year or 18 months) mixing cardio and strength, raises the level only when the effort is really there, and estimates the goal date from the rower's own measured pace. Streaks with freezes, milestones and a session summary keep the habit going. It ships as an installable PWA and as an Android app on Google Play through a Trusted Web Activity, with billing through Google Play. Bilingual (ES/EN), light and dark mode. Google Play: coming soon.",
+      client: "personal",
+      technologies: "Vanilla JavaScript (ES modules), PWA, Android (TWA, Google Play), Web Bluetooth (FTMS), Web Speech API, Google Play Billing (Digital Goods API), Vercel",
+      industry: "Mobile & PWA",
+      date: "November, 2026",
+      url: {
+        name: "vatiocoach.com",
+        link: "https://vatiocoach.com",
+      },
+      socialLinks: {
+        linkedin:
+          "https://www.linkedin.com/sharing/share-offsite/?url=" +
+          encodeURIComponent(
+            withUtm("https://vatiocoach.com", "linkedin", "share_linkedin_vatiocoach")
+          ),
+        whatsapp:
+          "https://wa.me/?text=" +
+          encodeURIComponent(
+            "Vatio Coach — tu entrenador de remo que te habla mientras remas: " +
+              withUtm("https://vatiocoach.com", "whatsapp", "share_whatsapp_vatiocoach")
+          ),
+        instagram: "http://www.instagram.com/",
+        facebook:
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+          encodeURIComponent(
+            withUtm("https://vatiocoach.com", "facebook", "share_facebook_vatiocoach")
+          ),
+      },
+      shortDescription: "A voice coach for smart rowing machines, as a PWA and an Android app",
+      thumbImage: "images/projects/vatiocoach-feature.png",
+      sliderImages: [
+        "images/projects/vatiocoach-home.png",
+        "images/projects/vatiocoach-placement.png",
+        "images/projects/vatiocoach-session.png",
+        "images/projects/vatiocoach-summary.png",
+      ],
+      categories: [filters.FULLSTACK],
+    },
+    {
       title: "Factusign",
       projectInfo:
         "Factusign is a billing app for Spanish freelancers: create quotes and invoices in minutes, send them by link and get them signed from the client's phone with a handwritten signature that carries legal validity. Every document is SHA-256 hashed and compliant with VeriFactu, the AEAT's new mandatory e-invoicing standard (required from July 2026). Free, Pro and Business plans with Stripe billing.",
