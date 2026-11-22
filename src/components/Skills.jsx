@@ -82,7 +82,7 @@ const Skills = ({ classicHeader, darkTheme }) => {
       percent: 75,
     },
     {
-      name: "PWA & Android (TWA)",
+      name: "Android TWA & Google Play",
       percent: 70,
     },
   ];
