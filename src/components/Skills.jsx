@@ -82,19 +82,7 @@ const Skills = ({ classicHeader, darkTheme }) => {
       percent: 75,
     },
     {
-      name: "Progressive Web Apps (PWA)",
-      percent: 80,
-    },
-    {
-      name: "Android TWA & Google Play",
-      percent: 70,
-    },
-    {
-      name: "Web Bluetooth",
-      percent: 75,
-    },
-    {
-      name: "Web Speech API",
+      name: "PWA & Android (TWA)",
       percent: 70,
     },
   ];
