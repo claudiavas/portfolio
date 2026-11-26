@@ -180,7 +180,7 @@ inline it into the public bundle. The browser form does not need it.
 
 **2026-11-26**
 
-Done this session (branch `sesion/vatio-shots`, merged into `dev`):
+Done this session (branch `sesion/vatio-shots`, merged into `dev` and `main`):
 
 - Vatio Coach slider images (`public/images/projects/vatiocoach-{home,placement,session,summary}.png`)
   replaced with the new-design English screenshots, the same ones live on
@@ -190,6 +190,6 @@ Done this session (branch `sesion/vatio-shots`, merged into `dev`):
 
 Pending:
 
-- [ ] Publish to `main` (GitHub Pages): needs Claudia's approval.
+- [x] Published to `main` with Claudia's OK (deploy run green; live image hash matches).
 
-Next step: merge `dev` into `main` once Claudia approves.
+Next step: none.
