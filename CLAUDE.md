@@ -178,21 +178,18 @@ inline it into the public bundle. The browser form does not need it.
 
 ## Estado
 
-**2026-11-11**
+**2026-11-26**
 
-**`https://www.claudiavasquez.dev` works** (Cloudflare proxy on `www`).
+Done this session (branch `sesion/vatio-shots`, merged into `dev`):
 
-Hecho en esta sesión:
+- Vatio Coach slider images (`public/images/projects/vatiocoach-{home,placement,session,summary}.png`)
+  replaced with the new-design English screenshots, the same ones live on
+  Google Play en-US (source: `rowing-coach/store/screenshots/en/`). The
+  thumbnail `vatiocoach-feature.png` was already identical to the Play
+  feature graphic.
 
-- GitHub still issued the Pages certificate for the apex only, so `www` was
-  proxied in Cloudflare via the API. Checked in the Playwright test browser:
-  `https://www`, `http://www` and the apex all land on
-  `https://claudiavasquez.dev/` with 200.
-- Earlier the same day, re-adding the Pages domain left the site on GitHub's
-  404 until the deploy was re-run (gotcha recorded above).
+Pending:
 
-Pendiente:
+- [ ] Publish to `main` (GitHub Pages): needs Claudia's approval.
 
-- Nothing open.
-
-Siguiente paso: none.
+Next step: merge `dev` into `main` once Claudia approves.
